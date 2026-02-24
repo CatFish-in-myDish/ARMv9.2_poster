@@ -8,8 +8,7 @@ function App() {
       <div className="body">
         <Column1 />
         <Column2 />
-        <Column3 />
-        <Column4 />
+        <RightSide />
       </div>
       <Footer />
     </div>
@@ -20,14 +19,14 @@ function Header() {
   return (
     <div className="hdr">
       <div className="hdr-left">
-        <h1><em>ARM</em>v9.2-A Architecture <span style={{ fontSize: '24px', color: '#00B4DB', fontWeight: '600' }}>(AArch64)</span></h1>
+        <h1><em>ARM</em>v9.2-A Architecture <span style={{ fontSize: '30px', color: '#00B4DB', fontWeight: '600' }}>(AArch64)</span></h1>
         <div className="sub">23CSE213 · Computer Organization & Architecture · B.Tech CSE 2024–28 · Semester 4</div>
       </div>
       <div className="hdr-specs">
-        <div className="sp"><strong>Arch:</strong> AArch64 · A64 ISA · Fixed 32-bit instructions · RISC</div>
-        <div className="sp"><strong>Features:</strong> RME · SME2 · SVE2 · MTE · PAC · BTI · TME · BRBE</div>
-        <div className="sp"><strong>Execution:</strong> EL0 (User) · EL1 (OS) · EL2 (Hyp) · EL3 (Secure)</div>
-        <div className="sp"><strong>Memory Model:</strong> Weakly ordered · Acquire-release semantics</div>
+        <div className="sp"><strong>Arch:</strong> AArch64 · A64 ISA · Exception Levels EL0–EL3</div>
+        <div className="sp"><strong>Security:</strong> Root · Realm · Secure · Non-Secure (RME)</div>
+        <div className="sp"><strong>Memory:</strong> VMSAv8-64 · Stage 1 & 2 Translation · 52-bit PA</div>
+        <div className="sp"><strong>Features:</strong> SVE2 · SME · MTE · PAC · BTI · TME · BRBE</div>
       </div>
       <div className="hdr-logo">
         <div className="arm-logo">ARM™</div>
@@ -39,24 +38,15 @@ function Header() {
 function Subbar() {
   return (
     <div className="subbar">
-      <div className="sb-item"><span className="sbd" style={{ background: '#00B4DB' }}></span><strong>ISA:</strong> 32-bit fixed-width · AArch64 only</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#00B4DB' }}></span><strong>ISA:</strong> 64-bit Fixed-width · AArch64 execution state</div>
       <div className="sb-item"><span className="sbd" style={{ background: '#4ade80' }}></span><strong>Registers:</strong> 31× 64-bit GPR + SP + PC + V/Z/ZA</div>
-      <div className="sb-item"><span className="sbd" style={{ background: '#f59e0b' }}></span><strong>Pipeline:</strong> Out-of-Order · 8-wide Fetch/Decode/Dispatch</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#f59e0b' }}></span><strong>Translation:</strong> MMU with Stage 1 & Stage 2 Support</div>
       <div className="sb-item"><span className="sbd" style={{ background: '#a78bfa' }}></span><strong>Security:</strong> 4 States — Root · Realm · Secure · Non-Secure</div>
-      <div className="sb-item"><span className="sbd" style={{ background: '#fb923c' }}></span><strong>Cache:</strong> L1 64KB I+D · L2 512KB–2MB private · DSU-120 L3</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#fb923c' }}></span><strong>Debug:</strong> PMU · Debug & Trace Architecture (CoreSight)</div>
     </div>
   )
 }
 
-function SectionStripe({ num, title, mark }) {
-  return (
-    <div className="sec-stripe">
-      <span className="sec-num">{num}</span>
-      <span className="sec-title">{title}</span>
-      <span className="sec-mark">{mark}</span>
-    </div>
-  )
-}
 
 function Card({ title, headerClass, grow, children }) {
   return (
@@ -72,22 +62,21 @@ function Card({ title, headerClass, grow, children }) {
 function Column1() {
   return (
     <div className="col">
-      <SectionStripe num="①" title="Architecture, Registers & ISA" mark="4 Marks" />
-      <Card title="1.1 · Architecture Overview" headerClass="ch-blue">
+      <Card title="Architecture Overview" headerClass="ch-blue">
         <div className="hl">
           <strong>ARMv9.2-A</strong> is a 64-bit RISC architecture (AArch64) featuring
-          <strong> RME</strong> for confidential compute, <strong>SME2</strong> for AI/ML, and
-          <strong> SVE2</strong> for scalable vectorisation across mobile, server, and HPC domains.
+          <strong> RME</strong> for confidential compute, <strong>SME</strong> for accelerated matrix operations, and
+          <strong> SVE2</strong> for scalable vectorisation.
         </div>
         <CoaArchitecture />
         <div className="sg">
-          <StatBox label="Fetch / Decode" value="8-Wide OOO" />
-          <StatBox label="ROB Capacity" value="384 Entries" />
-          <StatBox label="L1 Cache" value="64KB I + 64KB D" />
-          <StatBox label="Address Space" value="48 / 52-bit PA" />
+          <StatBox label="Execution State" value="AArch64 ONLY" />
+          <StatBox label="Virtual Addressing" value="Up to 64-bit VAs" />
+          <StatBox label="Physical Addressing" value="Up to 52-bit PAs" />
+          <StatBox label="Translation Levels" value="Up to 4 levels" />
         </div>
       </Card>
-      <Card title="1.2 · Register Structure (AArch64)" headerClass="ch-cyan" grow>
+      <Card title="Register Structure (AArch64)" headerClass="ch-cyan" grow>
         <CoaRegisters />
         <RegisterTable />
       </Card>
@@ -98,127 +87,153 @@ function Column1() {
 function Column2() {
   return (
     <div className="col">
-      <SectionStripe num="①" title="ISA Types · Formats · Addressing" mark="4 Marks" />
-      <Card title="1.3 · ISA Instruction Types (A64)" headerClass="ch-navy">
+      <Card title="ISA Instruction Types (A64)" headerClass="ch-navy">
         <InstructionTypeTable />
       </Card>
-      <Card title="1.4 · Instruction Formats (Fixed 32-bit)" headerClass="ch-blue">
-        <p style={{ fontSize: '6.2px', color: '#334155', marginBottom: '5px' }}>
-          Every AArch64 instruction is exactly <strong>32 bits wide</strong>. Field widths differ by format type:
+      <Card title="Instruction Formats (Architectural Class)" headerClass="ch-blue">
+        <p style={{ fontSize: '10.8px', color: '#334155', marginBottom: '4px' }}>
+          ARMv9.2-A instructions are <b>32 bits wide</b>. Formats are logically classed by operand type:
         </p>
-        <h4 style={{ display: 'flex', alignItems: 'center' }}>R-Type — Register–Register &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(ADD, SUB, AND, ORR…)</span></h4>
-        <div className="fmt-row">
+
+        <h4 style={{ margin: '4px 0 2px' }}>R-Type — Register–Register &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(ADD, SUB, AND, ORR…)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
           <div className="fmt-seg fs-op" style={{ flex: 11 }}>Opcode<br />11b</div>
           <div className="fmt-seg fs-rm" style={{ flex: 5 }}>Rm<br />5b</div>
           <div className="fmt-seg fs-sh" style={{ flex: 6 }}>Shift<br />6b</div>
           <div className="fmt-seg fs-rn" style={{ flex: 5 }}>Rn<br />5b</div>
           <div className="fmt-seg fs-rd" style={{ flex: 5 }}>Rd<br />5b</div>
         </div>
-        <h4>I-Type — Immediate &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(ADDI, SUBI, MOVZ, MOVK…)</span></h4>
-        <div className="fmt-row">
+
+        <h4 style={{ margin: '4px 0 2px' }}>I-Type — Immediate &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(ADDI, SUBI, MOVZ, MOVK…)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
           <div className="fmt-seg fs-op" style={{ flex: 10 }}>Opcode<br />10b</div>
           <div className="fmt-seg fs-im" style={{ flex: 12 }}>Immediate<br />12b</div>
           <div className="fmt-seg fs-rn" style={{ flex: 5 }}>Rn<br />5b</div>
           <div className="fmt-seg fs-rd" style={{ flex: 5 }}>Rd<br />5b</div>
         </div>
-        <h4>D-Type — Load / Store &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(LDR, STR, LDUR, STUR…)</span></h4>
-        <div className="fmt-row">
+
+        <h4 style={{ margin: '4px 0 2px' }}>D-Type — Load / Store &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(LDR, STR, LDUR, STUR…)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
           <div className="fmt-seg fs-op" style={{ flex: 11 }}>Opcode<br />11b</div>
           <div className="fmt-seg fs-of" style={{ flex: 9 }}>Offset<br />9b</div>
           <div className="fmt-seg fs-op2" style={{ flex: 2 }}>Op<br />2b</div>
           <div className="fmt-seg fs-rn" style={{ flex: 5 }}>Rn<br />5b</div>
           <div className="fmt-seg fs-rd" style={{ flex: 5 }}>Rt<br />5b</div>
         </div>
-        <h4>B-Type — Branch &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(B, BL, B.cond, BLR…)</span></h4>
-        <div className="fmt-row">
+
+        <h4 style={{ margin: '4px 0 2px' }}>CB-TYPE — Compare & Branch &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(CBZ, CBNZ)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
+          <div className="fmt-seg fs-op" style={{ flex: 8 }}>Opcode<br />8b</div>
+          <div className="fmt-seg fs-rd" style={{ flex: 5 }}>Rt<br />5b</div>
+          <div className="fmt-seg fs-of" style={{ flex: 19 }}>PC-Relative Offset · 19b</div>
+        </div>
+
+        <h4 style={{ margin: '4px 0 2px' }}>TB-TYPE — Test Bit & Branch &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(TBZ, TBNZ)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
+          <div className="fmt-seg fs-op" style={{ flex: 6 }}>Opcode<br />6b</div>
+          <div className="fmt-seg fs-rd" style={{ flex: 5 }}>Rt<br />5b</div>
+          <div className="fmt-seg fs-sh" style={{ flex: 6 }}>Bit pos<br />6b</div>
+          <div className="fmt-seg fs-of" style={{ flex: 15 }}>PC-Relative Offset · 15b</div>
+        </div>
+
+        <h4 style={{ margin: '4px 0 2px' }}>B-Type — Branch &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(B, BL, B.cond, BLR…)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
           <div className="fmt-seg fs-op" style={{ flex: 6 }}>Opcode<br />6b</div>
           <div className="fmt-seg fs-of" style={{ flex: 26 }}>PC-Relative Offset &nbsp;·&nbsp; 26 bits</div>
         </div>
+
+        <h4 style={{ margin: '4px 0 2px' }}>SYSTEM-TYPE — System / Control &nbsp;<span style={{ fontWeight: 400, color: '#64748B' }}>(MSR, MRS, HINT, ERET)</span></h4>
+        <div className="fmt-row" style={{ margin: '2px 0' }}>
+          <div className="fmt-seg fs-op" style={{ flex: 10 }}>Opcode<br />10b</div>
+          <div className="fmt-seg fs-im" style={{ flex: 22 }}>System Register / Immediate · 22b</div>
+        </div>
       </Card>
-      <Card title="1.5 · Addressing Modes (AArch64)" headerClass="ch-cyan" grow>
-        <div className="ac-grid">
-          <div className="ac-chip">Base Register<br />[Xn]</div>
-          <div className="ac-chip">Immediate Offset<br />[Xn, #imm]</div>
-          <div className="ac-chip">Register Offset<br />[Xn, Xm]</div>
-          <div className="ac-chip">Scaled Reg Offset<br />[Xn, Xm, LSL #3]</div>
-          <div className="ac-chip">Pre-Index<br />[Xn, #imm]!</div>
-          <div className="ac-chip">Post-Index<br />[Xn], #imm</div>
+      <Card title="Addressing Modes (A64)" headerClass="ch-cyan">
+        <div className="ac-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
+          <div className="ac-chip" style={{ padding: '2px' }}>Base Reg<br />[Xn]</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Imm Offset<br />[Xn, #imm]</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Reg Offset<br />[Xn, Xm]</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Pre-Index<br />[Xn, #imm]!</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Post-Index<br />[Xn], #imm</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Reg Extend<br />[Xn, Wm, SXTW]</div>
         </div>
-        <div className="ac-grid" style={{ gridTemplateColumns: '1fr' }}>
-          <div className="ac-chip">PC-Relative &nbsp;·&nbsp; ADRP provides ±4GB page-relative addressing range</div>
+        <div className="ac-grid" style={{ gridTemplateColumns: '1fr 1.2fr', gap: '2px', marginTop: '2px' }}>
+          <div className="ac-chip" style={{ padding: '2px' }}>PC-Relative Load<br />LDR Xt, label</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Pair Addressing<br />LDP / STP [Xn, #imm]</div>
         </div>
-        <p style={{ marginTop: '5px', fontSize: '6px', color: '#475569', lineHeight: 1.55 }}>
-          <strong>Pre-index</strong> updates base <em>before</em> access. <strong>Post-index</strong> updates base <em>after</em> access. <strong>PC-relative</strong> (ADRP) is used for position-independent code and large symbol addressing.
+        <br />
+        <p style={{ marginTop: '4px', fontSize: '12px', color: '#475569', lineHeight: 1.4 }}>
+          <strong>A64 Logic:</strong> ADRP provides ±4GB range. <strong>Pre/Post-index</strong> simplify pointer arithmetic. <strong>Register Extend</strong> allows offset extension.
         </p>
       </Card>
-    </div>
+
+      <ISAClarification />
+    </div >
   )
 }
 
-function Column3() {
+function RightSide() {
   return (
-    <div className="col">
-      <SectionStripe num="②" title="Datapath · Pipeline · Features · References" mark="4 Marks" />
-      <Card title="2.1 · Datapath Diagram & Flow (Cortex-X4 OOO)" headerClass="ch-dark">
+    <div style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <Card title="Datapath Diagram & Flow (Generic ARMv9.2-A Core — Conceptual)" headerClass="ch-dark">
         <CoaDatapath />
       </Card>
-      <Card title="2.2 · Pipeline Stages (IF – ID – EX – MEM – WB)" headerClass="ch-blue">
-        <div className="pipe-wrap">
-          <div className="pipe-box pb1">IF<span className="pipe-sub">Instruction<br />Fetch</span></div>
-          <div className="pipe-box pb2">ID<span className="pipe-sub">Decode &<br />Reg Read</span></div>
-          <div className="pipe-box pb3">EX<span className="pipe-sub">ALU / FPU<br />Execute</span></div>
-          <div className="pipe-box pb4">MEM<span className="pipe-sub">L1 Cache<br />Access</span></div>
-          <div className="pipe-box pb5">WB<span className="pipe-sub">Write<br />Back</span></div>
-          <div className="pipe-box pb6">CMT<span className="pipe-sub">In-Order<br />Retire</span></div>
-        </div>
-        <p style={{ fontSize: '6px', color: '#475569', margin: '4px 0 3px' }}><strong>OOO enhancements:</strong> Rename stage eliminates WAR/WAW hazards via register renaming → Issue Queue dispatches out-of-order → Reorder Buffer (ROB, 384 entries) enforces in-order retirement</p>
-        <div className="sg3">
-          <StatBox label="Fetch Width" value="8-wide" />
-          <StatBox label="ROB Entries" value="384" />
-          <StatBox label="Dispatch" value="8-wide" />
-        </div>
-      </Card>
-      <Card title="④ · Comparison & Critical Thinking — ARMv9.2 vs ARMv8.x" headerClass="ch-grn" grow>
-        <ComparisonTable />
-        <p style={{ marginTop: '5px', fontSize: '5.8px', color: '#475569', fontStyle: 'italic', lineHeight: 1.5, padding: '4px 6px', background: '#f8fafc', borderRadius: '3px', borderLeft: '2px solid #0040C1' }}>
-          <strong>Critical insight:</strong> ARMv9.2 is not an incremental update — it simultaneously redefines security (RME creates a new trust boundary), AI compute (SME2 adds native matrix hardware), and SIMD scalability (SVE2 eliminates width fragmentation). This makes a single ARMv9.2-A binary viable across mobile, cloud, HPC, and automotive domains — something ARMv8 could not achieve.
-        </p>
-      </Card>
-    </div>
-  )
-}
 
-function Column4() {
-  return (
-    <div className="col">
-      <SectionStripe num="②④" title="Key Features & Critical Thinking" mark="4 + 4 Marks" />
-      <Card title="2.3 · Key Processor Features" headerClass="ch-dark">
-        {[
-          ["Realm Mgmt Extension (RME)", "4 hardware security states: Root, Realm, Secure, Non-Secure. Isolates confidential workloads from host OS/hypervisor at hardware level."],
-          ["SME2 — Scalable Matrix Ext.", "Introduces a 2D ZA tile register file optimized for matrix multiplication and outer-product operations."],
-          ["SVE2 — Scalable Vector Ext. v2", "Variable-length SIMD (128–2048 bits, implementation-defined; Cortex-X4 implements 128-bit)."],
-          ["Memory Tagging Ext. (MTE)", "Hardware memory safety — detects use-after-free & buffer overflows at runtime with near-zero performance overhead."],
-          ["Pointer Authentication (PAC)", "Cryptographic signatures on return addresses & pointers. Prevents ROP & JOP binary exploitation attacks."],
-          ["Branch Target ID (BTI)", "Hardware-enforced valid indirect branch targets — prevents Jump-Oriented Programming attacks in production code."],
-          ["Transactional Memory (TME)", "Hardware atomic transactions — accelerates lock-intensive concurrent & multi-threaded workloads."],
-          ["Branch Record Buffer (BRBE)", "Captures branch history in hardware for precise profiling, performance analysis & compiler optimization."]
-        ].map(([title, desc], idx) => (
-          <div className="fi" key={idx}>
-            <div className="fi-num">{idx + 1}</div>
-            <div className="fi-t"><strong>{title}</strong><span>{desc}</span></div>
-          </div>
-        ))}
-      </Card>
-      <Card title="2.4 · Quality References" headerClass="ch-navy" grow>
-        <div className="refs">
-          <span>[1]</span> Arm Ltd., "Armv9-A Architecture Reference Manual," Ed. 2024.1.<br />
-          <span>[2]</span> Arm Developer, "Realm Management Extension (RME) Overview," Arm Whitepaper, 2023.<br />
-          <span>[3]</span> IEEE Micro, "A Profile of the Armv9.2 Architecture," vol. 43, no. 2, 2023.<br />
-          <span>[4]</span> Arm Tech, "Cortex-X4 Pipeline & Microarchitecture Internals," Technical Guide, 2023.<br />
-          <span>[5]</span> Arm Developer, "SME2 — Scalable Matrix Extension 2 Overview," 2023.
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', flex: 1 }}>
+        <div className="col">
+          <Card title="Key Processor Features" headerClass="ch-dark">
+
+            {[
+              ["Realm Mgmt Extension (RME)", "Architectural isolation: Root, Realm, Secure, Non-Secure states. Protects data by moving trust from OS/Hypervisor to hardware."],
+              ["SME — Scalable Matrix Ext.", "Introduces 2D ZA tile register file and outer-product instructions for architectural matrix acceleration."],
+              ["SVE2 — Scalable Vector Ext. v2", "Variable-length SIMD (128–2048 bits) with per-lane predication and hardware-managed vector length agnostic (VLA) coding."],
+              ["Memory Tagging Ext. (MTE)", "Hardware-assisted memory safety: tags on pointers and memory granules to detect use-after-free and buffer overflows."],
+              ["Pointer Authentication (PAC)", "Cryptographic signatures (PACs) on pointers to detect and prevent unauthorized pointer modifications (ROP/JOP mitigation)."],
+              ["Branch Target ID (BTI)", "Enforces that indirect branches must target specifically marked instructions, limiting gadget-based binary exploitation."],
+              ["Guarded Control Stack (GCS)", "Hardware-enforced stack for return addresses to mitigate ROP-style attacks (Return-Oriented Programming)."]
+            ].map(([title, desc], idx) => (
+              <div className="fi" key={idx}>
+                <div className="fi-t"><strong>{title}</strong><span>{desc}</span></div>
+              </div>
+            ))}
+          </Card>
         </div>
-      </Card>
-      <TeamTable />
+
+        <div className="col">
+          <Card title="Standard Architectural Pipeline Stages" headerClass="ch-blue">
+            <div className="pipe-wrap" style={{ margin: '3px 0' }}>
+              <div className="pipe-box pb1">IF<span className="pipe-sub">Instruction<br />Fetch</span></div>
+              <div className="pipe-box pb2">ID<span className="pipe-sub">Instruction<br />Decode</span></div>
+              <div className="pipe-box pb3">EX<span className="pipe-sub">ALU / FPU / SIMD<br />Execute</span></div>
+              <div className="pipe-box pb4">MEM<span className="pipe-sub">Memory<br />Access</span></div>
+              <div className="pipe-box pb5">WB<span className="pipe-sub">Register<br />Writeback</span></div>
+              <div className="pipe-box pb6">CMT<span className="pipe-sub">Architectural<br />Commit</span></div>
+            </div>
+            <p style={{ fontSize: '11px', color: '#475569', margin: '2px 0 2px' }}><strong>Logical Flow:</strong> The ARMv9.2-A architecture defines a sequential machine model. Implementation artifacts like Out-of-Order execution and Renaming are supported but remain transparent to the programmer at the architectural level.</p>
+            <div className="sg3">
+              <StatBox label="Vector Support" value="SVE2 / SME" />
+              <StatBox label="Memory Safety" value="MTE Tags" />
+              <StatBox label="Security" value="Root / Realm" />
+            </div>
+          </Card>
+
+          <Card title="References" headerClass="ch-navy" grow>
+            <div className="refs" style={{ fontSize: '10px', lineHeight: 1.7 }}>
+              Arm Ltd., "Armv9-A Architecture Reference Manual (ARM)," Ed. 2024.1.<br />
+              <a href="https://developer.arm.com/documentation/ddi0601" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation/ddi0601</a><br />
+              Arm Ltd., "Arm Architecture Reference Manual supplement: RME," 2023.<br />
+              <a href="https://developer.arm.com/documentation/ddi0615" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation/ddi0615</a><br />
+              IEEE Micro, "A Profile of the Armv9.2 Architecture," vol. 43, no. 2, 2023.<br />
+              <a href="https://ieeexplore.ieee.org" style={{ color: '#0040C1', textDecoration: 'none' }}>ieeexplore.ieee.org</a><br />
+              Arm Ltd., "Armv9-A Performance Monitoring Unit (PMU) Guide," 2023.<br />
+              {/* <a href="https://developer.arm.com/documentation" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation</a><br />
+              Arm Developer, "Learn the Architecture: SME & SVE2 Overview," 2023.<br />
+              <a href="https://developer.arm.com/architectures/instruction-sets" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/architectures/instruction-sets</a> */}
+            </div>
+          </Card>
+          <TeamTable />
+        </div>
+      </div>
     </div>
   )
 }
@@ -233,122 +248,277 @@ function StatBox({ label, value }) {
 }
 
 function CoaArchitecture() {
+  const width = 320;
+  const centerX = width / 2;
+
   return (
-    <svg viewBox="0 0 295 178" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'JetBrains Mono',monospace", border: '1px solid #D0DBF0', borderRadius: '4px', display: 'block', marginBottom: '5px' }}>
+    <svg viewBox="0 0 320 440" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'JetBrains Mono',monospace", border: '1px solid #D0DBF0', borderRadius: '4px', display: 'block', marginBottom: '5px', background: '#fff' }}>
       <defs>
         <marker id="ab" markerWidth="5" markerHeight="4" refX="4" refY="2" orient="auto">
           <path d="M0,0 L5,2 L0,4 Z" fill="#334155" />
         </marker>
+        <marker id="ab-green" markerWidth="5" markerHeight="4" refX="4" refY="2" orient="auto">
+          <path d="M0,0 L5,2 L0,4 Z" fill="#006B63" />
+        </marker>
       </defs>
-      <rect x="2" y="2" width="291" height="174" rx="5" fill="none" stroke="#CBD5E1" strokeWidth="1" strokeDasharray="4,3" />
-      <text x="7" y="11" fill="#94a3b8" fontSize="4.5" fontWeight="700">ARMv9.2-A SoC BOUNDARY</text>
-      <rect x="8" y="16" width="74" height="22" rx="3" fill="#EFF6FF" stroke="#0040C1" strokeWidth="1.5" />
-      <text x="45" y="25" textAnchor="middle" fill="#0040C1" fontSize="5" fontWeight="800">CORTEX-X4</text>
-      <text x="45" y="33" textAnchor="middle" fill="#475569" fontSize="4">Max Performance · ~15% IPC↑ vs X3</text>
-      <rect x="8" y="44" width="74" height="22" rx="3" fill="#f0fdfa" stroke="#0088A8" strokeWidth="1.5" />
-      <text x="45" y="53" textAnchor="middle" fill="#0088A8" fontSize="5" fontWeight="800">CORTEX-A720</text>
-      <text x="45" y="61" textAnchor="middle" fill="#475569" fontSize="4">Performance-Efficiency Tier</text>
-      <rect x="8" y="72" width="74" height="22" rx="3" fill="#f0fdf4" stroke="#166534" strokeWidth="1.5" />
-      <text x="45" y="81" textAnchor="middle" fill="#166534" fontSize="5" fontWeight="800">CORTEX-A520</text>
-      <text x="45" y="89" textAnchor="middle" fill="#475569" fontSize="4">Ultra-Efficiency · Pure 64-bit</text>
-      <rect x="90" y="16" width="46" height="78" rx="3" fill="#f8fafc" stroke="#1A365D" strokeWidth="1.5" />
-      <text x="113" y="58" textAnchor="middle" fill="#1A365D" fontSize="4.5" fontWeight="800" transform="rotate(-90,113,58)">DSU-120 · L3 Cache</text>
-      <line x1="82" y1="27" x2="90" y2="27" stroke="#334155" strokeWidth="1" markerEnd="url(#ab)" />
-      <line x1="82" y1="55" x2="90" y2="55" stroke="#334155" strokeWidth="1" markerEnd="url(#ab)" />
-      <line x1="82" y1="83" x2="90" y2="83" stroke="#334155" strokeWidth="1" markerEnd="url(#ab)" />
-      <rect x="145" y="16" width="56" height="78" rx="3" fill="#fafafa" stroke="#001A4F" strokeWidth="2" />
-      <text x="173" y="58" textAnchor="middle" fill="#001A4F" fontSize="4.5" fontWeight="800" transform="rotate(-90,173,58)">CMN-700 COHERENT MESH</text>
-      <line x1="136" y1="55" x2="145" y2="55" stroke="#334155" strokeWidth="1" markerEnd="url(#ab)" />
-      <rect x="8" y="103" width="105" height="19" rx="3" fill="#f0fdf4" stroke="#006B63" strokeWidth="1.5" />
-      <text x="60" y="115" textAnchor="middle" fill="#006B63" fontSize="4.8" fontWeight="800">REALM MANAGEMENT EXT. (RME)</text>
-      <line x1="113" y1="112" x2="145" y2="112" stroke="#006B63" strokeWidth="1" markerEnd="url(#ab)" />
-      <rect x="8" y="128" width="105" height="19" rx="3" fill="#f8fafc" stroke="#1A365D" strokeWidth="1.5" />
-      <text x="60" y="140" textAnchor="middle" fill="#1A365D" fontSize="4.8" fontWeight="800">MEM I/O · DDR5X · PCIe Gen 5</text>
-      <line x1="113" y1="137" x2="145" y2="137" stroke="#1A365D" strokeWidth="1" markerEnd="url(#ab)" />
-      <rect x="215" y="40" width="72" height="20" rx="3" fill="#f8fafc" stroke="#64748B" strokeWidth="1" />
-      <text x="251" y="52" textAnchor="middle" fill="#475569" fontSize="4.2" fontWeight="700">EXTERNAL RAM / STORAGE</text>
-      <line x1="201" y1="55" x2="215" y2="50" stroke="#64748B" strokeWidth="1" markerEnd="url(#ab)" />
-      <rect x="8" y="153" width="50" height="16" rx="3" fill="#fdf4ff" stroke="#7e22ce" strokeWidth="1.2" />
-      <text x="33" y="163" textAnchor="middle" fill="#7e22ce" fontSize="4.5" fontWeight="800">SME2 · ZA</text>
-      <rect x="64" y="153" width="50" height="16" rx="3" fill="#fff7ed" stroke="#b45309" strokeWidth="1.2" />
-      <text x="89" y="163" textAnchor="middle" fill="#b45309" fontSize="4.5" fontWeight="800">SVE2 · Z regs</text>
-      <rect x="120" y="153" width="80" height="16" rx="3" fill="#f0f9ff" stroke="#0369a1" strokeWidth="1.2" />
-      <text x="160" y="163" textAnchor="middle" fill="#0369a1" fontSize="4.5" fontWeight="800">PMUv3.5 · ETE Trace · BRBE</text>
+
+      {/* Background Frame */}
+      <rect x="2" y="2" width="316" height="436" rx="4" fill="none" stroke="#CBD5E1" strokeWidth="1" strokeDasharray="3,2" />
+      <text x={centerX} y="15" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold">ARMv9.2-A ARCHITECTURAL DOMAIN</text>
+
+      {/* APPLICATION CORES */}
+      <g transform="translate(50, 24)">
+        <rect x="0" y="0" width="220" height="38" rx="3" fill="#EFF6FF" stroke="#0040C1" strokeWidth="1.5" />
+        <text x="110" y="16" textAnchor="middle" fill="#0040C1" fontSize="9.5" fontWeight="900">APPLICATION CORE</text>
+        <text x="110" y="29" textAnchor="middle" fill="#475569" fontSize="7.2" fontWeight="700">AArch64 · EL0–EL3 · Non-Secure / Secure / Realm</text>
+      </g>
+
+      <g transform="translate(50, 68)">
+        <rect x="0" y="0" width="220" height="38" rx="3" fill="#EFF6FF" stroke="#0040C1" strokeWidth="1.5" />
+        <text x="110" y="16" textAnchor="middle" fill="#0040C1" fontSize="9.5" fontWeight="900">APPLICATION CORE</text>
+        <text x="110" y="29" textAnchor="middle" fill="#475569" fontSize="7.2" fontWeight="700">AArch64 · EL0–EL3 · Non-Secure / Secure / Realm</text>
+      </g>
+
+      {/* SHARED CLUSTER LOGIC (DSU) */}
+      <g transform="translate(60, 115)">
+        <rect x="0" y="0" width="200" height="24" rx="3" fill="#f8fafc" stroke="#1A365D" strokeWidth="1.5" />
+        <text x="100" y="15" textAnchor="middle" fill="#1A365D" fontSize="9" fontWeight="900">SHARED CLUSTER LOGIC (DSU)</text>
+      </g>
+
+      <line x1={centerX} y1="62" x2={centerX} y2="68" stroke="#334155" strokeWidth="1" />
+      <line x1={centerX} y1="106" x2={centerX} y2="115" stroke="#334155" strokeWidth="1" />
+
+      {/* COHERENT INTERCONNECT */}
+      <g transform="translate(35, 148)">
+        <rect x="0" y="0" width="250" height="40" rx="3" fill="#fafafa" stroke="#001A4F" strokeWidth="2.5" />
+        <text x="125" y="18" textAnchor="middle" fill="#001A4F" fontSize="9.5" fontWeight="900">COHERENT INTERCONNECT (AMBA CHI / ACE)</text>
+        <text x="125" y="31" textAnchor="middle" fill="#475569" fontSize="7.5" fontWeight="700">Snoop Control · Hardware Coherency</text>
+      </g>
+
+      <line x1={centerX} y1="139" x2={centerX} y2="148" stroke="#001A4F" strokeWidth="1.2" />
+
+      {/* RME */}
+      <g transform="translate(50, 198)">
+        <rect x="0" y="0" width="220" height="48" rx="3" fill="#f0fdf4" stroke="#006B63" strokeWidth="1.5" />
+        <text x="110" y="15" textAnchor="middle" fill="#006B63" fontSize="9.5" fontWeight="900">REALM MANAGEMENT EXTENSION (RME)</text>
+        <text x="110" y="28" textAnchor="middle" fill="#166534" fontSize="7.5" fontWeight="700">ROOT · REALM · SECURE · NON-SECURE</text>
+        <text x="110" y="40" textAnchor="middle" fill="#065f46" fontSize="7.5" fontWeight="500">Confidential Compute Architecture</text>
+      </g>
+
+      <line x1={centerX} y1="188" x2={centerX} y2="198" stroke="#006B63" strokeWidth="1.2" markerEnd="url(#ab-green)" />
+
+      {/* SYSTEM MMU */}
+      <g transform="translate(50, 256)">
+        <rect x="0" y="0" width="220" height="38" rx="3" fill="#f8fafc" stroke="#1A365D" strokeWidth="1.5" />
+        <text x="110" y="15" textAnchor="middle" fill="#1A365D" fontSize="9.5" fontWeight="900">SYSTEM MMU / VIRTUALIZATION</text>
+        <text x="110" y="29" textAnchor="middle" fill="#475569" fontSize="8" fontWeight="700">STAGE-2 TRANSLATION (VMSAv8-64)</text>
+      </g>
+
+      <line x1={centerX} y1="246" x2={centerX} y2="256" stroke="#1A365D" strokeWidth="1.2" />
+
+      {/* MAIN MEMORY */}
+      <g transform="translate(50, 304)">
+        <rect x="0" y="0" width="220" height="38" rx="3" fill="#f8fafc" stroke="#64748B" strokeWidth="1.5" />
+        <text x="110" y="15" textAnchor="middle" fill="#475569" fontSize="9.5" fontWeight="900">MAIN MEMORY / SYSTEM</text>
+        <text x="110" y="29" textAnchor="middle" fill="#64748B" fontSize="8" fontWeight="700">Up to 52-bit Physical Address (PA)</text>
+      </g>
+
+      <line x1={centerX} y1="294" x2={centerX} y2="304" stroke="#64748B" strokeWidth="1.2" />
+
+      {/* DEBUG */}
+      <g transform="translate(35, 352)">
+        <rect x="0" y="0" width="250" height="42" rx="3" fill="#fff7ed" stroke="#b45309" strokeWidth="1.5" />
+        <text x="125" y="18" textAnchor="middle" fill="#b45309" fontSize="9.5" fontWeight="900">PMU · DEBUG & TRACE ARCHITECTURE</text>
+        <text x="125" y="32" textAnchor="middle" fill="#9a3412" fontSize="7.5" fontWeight="700">Architectural Performance Monitoring & CoreSight</text>
+      </g>
+
+      <line x1={centerX} y1="342" x2={centerX} y2="352" stroke="#b45309" strokeWidth="1.2" />
     </svg>
-  )
+  );
 }
 
 function CoaRegisters() {
+  const width = 320;
+  const centerX = width / 2;
+
   return (
-    <svg viewBox="0 0 274 65" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'JetBrains Mono',monospace", border: '1px solid #D0DBF0', borderRadius: '4px', display: 'block', marginBottom: '4px' }}>
-      <text x="6" y="12" fill="#0040C1" fontSize="5" fontWeight="900">64-BIT Xn REGISTER:</text>
-      <rect x="6" y="16" width="262" height="13" rx="2" fill="#EFF6FF" stroke="#0040C1" strokeWidth="1.5" />
-      <line x1="137" y1="16" x2="137" y2="29" stroke="#0040C1" strokeWidth="0.8" strokeDasharray="2,2" />
-      <text x="72" y="25" textAnchor="middle" fill="#1e3a8a" fontSize="4.5" fontWeight="700">[63 ─────── 32]</text>
-      <text x="202" y="25" textAnchor="middle" fill="#1e3a8a" fontSize="4.5" fontWeight="700">[31 ─────── 0]</text>
-      <text x="6" y="42" fill="#1A365D" fontSize="5" fontWeight="900">32-BIT Wn ALIAS:</text>
-      <rect x="138" y="44" width="130" height="10" rx="2" fill="#f0fdfa" stroke="#1A365D" strokeWidth="1.5" />
-      <text x="203" y="51" textAnchor="middle" fill="#1A365D" fontSize="4" fontWeight="700">[31 ─── 0] LOWER HALF ONLY</text>
-      <text x="203" y="60" textAnchor="middle" fill="#0040C1" fontSize="3.5" fontWeight="700">* WRITES TO Wn ZERO-EXTEND Xn</text>
+    <svg viewBox="0 0 320 100" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'JetBrains Mono',monospace", border: '1px solid #D0DBF0', borderRadius: '4px', display: 'block', marginBottom: '5px', background: '#fff' }}>
+      {/* Label for 64-bit register */}
+      <text x={centerX} y="15" textAnchor="middle" fill="#001A4F" fontSize="9" fontWeight="900">64-BIT Xn REGISTER (AArch64)</text>
+
+      {/* 64-bit Register Box */}
+      <rect x="15" y="22" width="290" height="20" rx="2" fill="#EFF6FF" stroke="#0040C1" strokeWidth="1.5" />
+
+      <line x1={centerX} y1="22" x2={centerX} y2="42" stroke="#0040C1" strokeWidth="1" strokeDasharray="3,2" />
+
+      <text x="88" y="35" textAnchor="middle" fill="#1e3a8a" fontSize="8.5" fontWeight="800">[63 : 32]</text>
+      <text x="232" y="35" textAnchor="middle" fill="#1e3a8a" fontSize="8.5" fontWeight="800">[31 : 0]</text>
+
+      {/* Label for 32-bit alias */}
+      <text x={centerX} y="58" textAnchor="middle" fill="#1A365D" fontSize="9" fontWeight="900">32-BIT Wn ALIAS (Lower Half)</text>
+
+      <rect x="90" y="64" width="140" height="16" rx="2" fill="#f0fdfa" stroke="#006B63" strokeWidth="1.5" />
+      <text x={centerX} y="75" textAnchor="middle" fill="#006B63" fontSize="8" fontWeight="800">[31 : 0]</text>
+
+      <br />
+      <text x={centerX} y="92" textAnchor="middle" fill="#0040C1" fontSize="6.5" fontWeight="700" fontStyle="italic">* WRITES TO Wn ZERO-EXTEND TO THE FULL 64-BIT Xn REGISTER</text>
     </svg>
   )
 }
 
 function CoaDatapath() {
   return (
-    <svg viewBox="0 0 295 158" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'JetBrains Mono',monospace", border: '1px solid #D0DBF0', borderRadius: '4px', display: 'block' }}>
-      <defs>
-        <marker id="as" markerWidth="5" markerHeight="4" refX="4" refY="2" orient="auto">
-          <path d="M0,0 L5,2 L0,4 Z" fill="#334155" />
-        </marker>
-      </defs>
-      <rect x="4" y="8" width="40" height="22" rx="3" fill="#EFF6FF" stroke="#001A4F" strokeWidth="2" />
-      <text x="24" y="18" textAnchor="middle" fill="#001A4F" fontSize="5.5" fontWeight="900">IF</text>
-      <text x="24" y="26" textAnchor="middle" fill="#475569" fontSize="3.8">Fetch</text>
-      <line x1="44" y1="19" x2="52" y2="19" stroke="#334155" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="52" y="8" width="40" height="22" rx="3" fill="#f0f9ff" stroke="#1A365D" strokeWidth="2" />
-      <text x="72" y="18" textAnchor="middle" fill="#1A365D" fontSize="5.5" fontWeight="900">ID</text>
-      <text x="72" y="26" textAnchor="middle" fill="#475569" fontSize="3.8">Decode</text>
-      <line x1="92" y1="19" x2="100" y2="19" stroke="#334155" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="100" y="8" width="46" height="22" rx="3" fill="#f0f4ff" stroke="#0040C1" strokeWidth="2" />
-      <text x="123" y="18" textAnchor="middle" fill="#0040C1" fontSize="5.5" fontWeight="900">RN</text>
-      <text x="123" y="26" textAnchor="middle" fill="#475569" fontSize="3.8">Rename/ROB</text>
-      <line x1="146" y1="19" x2="154" y2="19" stroke="#334155" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="154" y="8" width="44" height="22" rx="3" fill="#f0fdfa" stroke="#0088A8" strokeWidth="2" />
-      <text x="176" y="18" textAnchor="middle" fill="#0088A8" fontSize="5.5" fontWeight="900">IS</text>
-      <text x="176" y="26" textAnchor="middle" fill="#475569" fontSize="3.8">Issue Sched</text>
-      <line x1="198" y1="19" x2="206" y2="19" stroke="#334155" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="206" y="8" width="38" height="22" rx="3" fill="#fffbeb" stroke="#b45309" strokeWidth="2" />
-      <text x="225" y="18" textAnchor="middle" fill="#b45309" fontSize="5.5" fontWeight="900">EX</text>
-      <text x="225" y="26" textAnchor="middle" fill="#475569" fontSize="3.8">Execute</text>
-      <line x1="244" y1="19" x2="252" y2="19" stroke="#334155" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="252" y="8" width="38" height="22" rx="3" fill="#f0fdf4" stroke="#15803d" strokeWidth="2" />
-      <text x="271" y="18" textAnchor="middle" fill="#15803d" fontSize="5.5" fontWeight="900">WB</text>
-      <text x="271" y="26" textAnchor="middle" fill="#475569" fontSize="3.8">Writeback</text>
-      <line x1="225" y1="30" x2="225" y2="42" stroke="#b45309" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="154" y="42" width="76" height="17" rx="3" fill="#f0f4ff" stroke="#1A365D" strokeWidth="1.5" />
-      <text x="192" y="53" textAnchor="middle" fill="#1A365D" fontSize="4.5" fontWeight="800">INT · FP · SIMD · SVE2</text>
-      <rect x="154" y="63" width="76" height="17" rx="3" fill="#f0fdfa" stroke="#0088A8" strokeWidth="1.5" />
-      <text x="192" y="74" textAnchor="middle" fill="#0088A8" fontSize="4.5" fontWeight="800">LOAD/STORE · SME2 · ZA</text>
-      <line x1="192" y1="59" x2="192" y2="63" stroke="#334155" strokeWidth="0.8" />
-      <rect x="4" y="42" width="60" height="17" rx="3" fill="#f0fdf4" stroke="#166534" strokeWidth="1.5" />
-      <text x="34" y="53" textAnchor="middle" fill="#166534" fontSize="4.5" fontWeight="800">L1 I-Cache 64KB</text>
-      <line x1="24" y1="30" x2="24" y2="42" stroke="#166534" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="4" y="63" width="60" height="17" rx="3" fill="#f0fdf4" stroke="#166534" strokeWidth="1.5" />
-      <text x="34" y="74" textAnchor="middle" fill="#166534" fontSize="4.5" fontWeight="800">L1 D-Cache 64KB</text>
-      <line x1="154" y1="72" x2="64" y2="72" stroke="#166534" strokeWidth="0.8" markerEnd="url(#as)" />
-      <rect x="70" y="42" width="56" height="17" rx="3" fill="#fdf4ff" stroke="#7e22ce" strokeWidth="1.5" />
-      <text x="98" y="53" textAnchor="middle" fill="#7e22ce" fontSize="4.5" fontWeight="800">Branch Predictor</text>
-      <line x1="72" y1="30" x2="72" y2="42" stroke="#7e22ce" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="4" y="90" width="286" height="16" rx="3" fill="#001A4F" />
-      <text x="147" y="101" textAnchor="middle" fill="#fff" fontSize="5" fontWeight="900">COMMIT (IN-ORDER RETIREMENT VIA ROB)</text>
-      <line x1="271" y1="80" x2="271" y2="90" stroke="#334155" strokeWidth="1" markerEnd="url(#as)" />
-      <rect x="4" y="115" width="118" height="15" rx="3" fill="#f8fafc" stroke="#475569" strokeWidth="1.5" />
-      <text x="63" y="125" textAnchor="middle" fill="#475569" fontSize="4.2" fontWeight="700">L2 Cache · 512KB–2MB (Private)</text>
-      <rect x="130" y="115" width="160" height="15" rx="3" fill="#f8fafc" stroke="#001A4F" strokeWidth="1.5" />
-      <text x="210" y="125" textAnchor="middle" fill="#001A4F" fontSize="4.2" fontWeight="700">DSU-120 Shared L3 · CMN-700 Mesh</text>
-      <text x="4" y="145" fill="#94a3b8" fontSize="3.8">OOO: Rename eliminates WAR/WAW hazards · ROB holds 384 in-flight instr · Retire restores program order</text>
-    </svg>
+    <div style={{ background: '#fff', padding: '25px', borderRadius: '10px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+      <svg viewBox="0 0 960 660" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#1e293b" />
+          </marker>
+          <marker id="control-arrow" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+            <polygon points="0 0, 8 2.5, 0 5" fill="#ef4444" />
+          </marker>
+        </defs>
+
+        {/* --- TIERED TITLE --- */}
+        <text x="480" y="30" textAnchor="middle" fill="#0f172a" fontSize="22" fontWeight="900">AArch64 Instruction Datapath Cleanup</text>
+        <text x="480" y="55" textAnchor="middle" fill="#64748b" fontSize="11" fontStyleStyle="italic">“Refined Textbook Model for Single-Cycle Architectural Study”</text>
+
+        {/* --- HARDWARE TIER: UPPER (FETCH & BRANCH) --- */}
+
+        {/* Next PC Mux Cluster */}
+        <path d="M40 270 L70 278 L70 342 L40 350 Z" fill="#fff" stroke="#64748b" strokeWidth="2" />
+        <text x="55" y="265" textAnchor="middle" fill="none" stroke="#fff" strokeWidth="4" fontSize="10" fontWeight="900">MUX</text>
+        <text x="55" y="265" textAnchor="middle" fill="#475569" fontSize="10" fontWeight="900">MUX</text>
+
+        {/* PC Register */}
+        <rect x="100" y="280" width="55" height="100" fill="#eff6ff" stroke="#2563eb" strokeWidth="2.5" />
+        <text x="127.5" y="335" textAnchor="middle" fill="#1e40af" fontSize="13" fontWeight="950">PC</text>
+
+        {/* PC+4 Incrementer */}
+        <path d="M170 140 L205 105 L205 175 Z" fill="#f8fafc" stroke="#64748b" strokeWidth="2" transform="rotate(-90 187.5 140)" />
+        <text x="187.5" y="125" textAnchor="middle" fill="#475569" fontSize="11" fontWeight="950">Add</text>
+        <text x="160" y="155" fill="#475569" fontSize="12" fontWeight="800">4</text>
+
+        {/* Branch Target Adder */}
+        <path d="M480 80 L515 45 L515 115 Z" fill="#fcfcfc" stroke="#64748b" strokeWidth="2" transform="rotate(-90 497.5 80)" />
+        <text x="497.5" y="65" textAnchor="middle" fill="#475569" fontSize="11" fontWeight="950">Add</text>
+
+        {/* Branch Logic Cluster (Isolated Far Right) */}
+        <path d="M840 130 L840 170 A 20 20 0 0 0 880 150 A 20 20 0 0 0 840 130" fill="#f8fafc" stroke="#1e293b" strokeWidth="2" />
+        <text x="858" y="120" textAnchor="middle" fill="#1e293b" fontSize="11" fontWeight="1000">AND</text>
+
+        {/* --- HARDWARE TIER: MIDDLE (EXECUTION) --- */}
+
+        {/* Instruction Memory */}
+        <rect x="220" y="270" width="110" height="120" fill="#eff6ff" stroke="#2563eb" strokeWidth="2.5" />
+        <text x="275" y="325" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="950">Instruction</text>
+        <text x="275" y="343" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="950">Memory</text>
+
+        {/* Register File */}
+        <rect x="500" y="250" width="130" height="160" fill="#faf5ff" stroke="#7e22ce" strokeWidth="3" />
+        <text x="565" y="275" textAnchor="middle" fill="#6b21a8" fontSize="13" fontWeight="1000">Register File</text>
+
+        {/* ALU (Primary Focus) */}
+        <path d="M750 270 L750 325 L770 340 L750 355 L750 410 L825 365 L825 315 Z" fill="#f8fafc" stroke="#1e293b" strokeWidth="3" />
+        <text x="787" y="345" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="1000">ALU</text>
+
+        {/* Data Memory */}
+        <rect x="855" y="270" width="100" height="120" fill="#eff6ff" stroke="#2563eb" strokeWidth="2.5" />
+        <text x="905" y="325" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="950">Data Memory</text>
+
+        {/* --- HARDWARE TIER: LOWER (DECODE & CONTROL) --- */}
+
+        {/* Control Unit (Hub Positioning) */}
+        <path d="M370 160 L430 100 L490 160 L430 220 Z" fill="#fef2f2" stroke="#ef4444" strokeWidth="3" />
+        <text x="430" y="165" textAnchor="middle" fill="#991b1b" fontSize="12" fontWeight="1000">Control Unit</text>
+
+        {/* Immediate Decode */}
+        <rect x="360" y="470" width="135" height="55" rx="15" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2.5" />
+        <text x="427.5" y="495" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="1000">Immediate Decode /</text>
+        <text x="427.5" y="512" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="1000">Sign Extension</text>
+
+        {/* ALU Control */}
+        <path d="M650 520 L700 470 L750 520 L700 570 Z" fill="#fefce8" stroke="#ca8a04" strokeWidth="2.5" />
+        <text x="700" y="515" textAnchor="middle" fill="#854d0e" fontSize="11" fontWeight="1000">ALU</text>
+        <text x="700" y="532" textAnchor="middle" fill="#854d0e" fontSize="11" fontWeight="1000">Control</text>
+
+        {/* ALU/WB Muxes */}
+        <path d="M685 330 L710 335 L710 395 L685 400 Z" fill="#fff" stroke="#64748b" strokeWidth="2" />
+        <text x="697" y="325" textAnchor="middle" fill="#475569" fontSize="9" fontWeight="900">MUX</text>
+
+        <path d="M850 480 L880 485 L880 545 L850 550 Z" fill="#fff" stroke="#64748b" strokeWidth="2" transform="rotate(-90 865 515)" />
+        <text x="865" y="475" textAnchor="middle" fill="#475569" fontSize="9" fontWeight="900">MUX</text>
+
+        {/* --- SIGNAL ROUTING: DATA PATH TIERED LANES (THICK BLACK) --- */}
+        <g fill="none" stroke="#1e293b" strokeWidth="2.8" markerEnd="url(#arrowhead)">
+          {/* Lane 1: Fetch */}
+          <path d="M70 310 L100 310" />
+          <path d="M155 330 L220 330" />
+          <path d="M165 330 V140 H170" markerEnd="none" />
+          <path d="M205 140 H30 V290 H40" />
+          <path d="M220 140 V75 H480" />
+
+          {/* Lane 2: Execute */}
+          <path d="M330 330 L500 330" />
+          <path d="M350 330 V160 H370" />
+          <path d="M350 330 V497 H360" />
+          <path d="M350 330 V580 H680 V550" />
+          <path d="M495 497 H670 V380 H685" />
+          <path d="M540 497 V85" markerEnd="url(#arrowhead)" strokeDasharray="6,4" /> {/* Branch offset */}
+          <path d="M512 80 H910 V15 H10 V325 H40" /> {/* Branch Target to PC Mux */}
+
+          <path d="M630 300 H750" />
+          <path d="M630 370 H685" />
+          <path d="M710 370 H750" />
+          <path d="M825 340 H855" />
+          <path d="M835 340 V528 H845" markerEnd="none" />
+          <path d="M955 330 H960 V515 H895" />
+          <path d="M835 515 H15 V640 H565 V410" /> {/* Final Write Back */}
+        </g>
+
+        {/* --- SIGNAL ROUTING: CONTROL TIERED LANES (THIN RED) --- */}
+        <g fill="none" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#control-arrow)">
+          <path d="M430 220 V250 H790 V145 H840" /> {/* Branch logic trigger */}
+          <path d="M490 145 H550 V250" />           {/* RegWrite enable */}
+          <path d="M455 220 V255 H697 V330" />       {/* ALUSrc select */}
+          <path d="M405 220 V610 H670 V555" />       {/* ALUOp distribution */}
+          <path d="M475 220 V245 H905 V270" />       {/* Data Memory R/W */}
+          <path d="M490 180 H935 V515 H880" />       {/* MemToReg mux select */}
+          <path d="M700 470 V420" stroke="#ca8a04" markerEnd="url(#control-arrow)" /> {/* ALU Command cable */}
+        </g>
+
+        {/* Status Line (Blue) */}
+        <path d="M787 410 V440 H820 V165 H840" fill="none" stroke="#3b82f6" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+
+        {/* Next PC Select Feed */}
+        <path d="M880 150 H920 V10 H5 V275 H40" fill="none" stroke="#1e293b" strokeWidth="1.2" markerEnd="url(#arrowhead)" />
+
+        {/* --- ANNOTATIONS & LABELS (ZERO OVERLAP) --- */}
+        <g fontSize="10" fontWeight="950" textAnchor="start">
+          <text x="560" y="242" fill="#ef4444">RegWrite</text>
+          <text x="350" y="242" fill="#ef4444">Branch</text>
+          <text x="590" y="625" fill="#ef4444">ALUOp Code</text>
+          <text x="795" y="455" fill="#3b82f6">Zero Flag</text>
+          <text x="55" y="210" fill="#1e293b" transform="rotate(-90 55 210)">PCSrc Logic</text>
+          <text x="860" y="240" fill="#ef4444">Mem Control</text>
+          <text x="340" y="280" fill="#3b82f6" fontWeight="900" fontSize="10">[31-21]</text>
+          <text x="340" y="395" fill="#3b82f6" fontWeight="900" fontSize="10">[25-0]</text>
+        </g>
+
+        {/* LEGEND (Bottom Right Clean Zone) */}
+        <g transform="translate(685, 545)">
+          <rect width="265" height="105" fill="#fff" stroke="#e2e8f0" rx="8" />
+          <text x="12" y="22" fontSize="12" fontWeight="1000" fill="#0f172a">AARCH64 ROUTING LEGEND</text>
+          <line x1="12" y1="42" x2="52" y2="42" stroke="#1e293b" strokeWidth="4" />
+          <text x="60" y="47" fontSize="10" fill="#475569" fontWeight="800">64-bit Core Buses (Banded Lanes)</text>
+          <line x1="12" y1="65" x2="52" y2="65" stroke="#ef4444" strokeWidth="2" />
+          <text x="60" y="70" fontSize="10" fill="#991b1b" fontWeight="800">Control Signal Plane (Tier 3)</text>
+          <line x1="12" y1="88" x2="52" y2="88" stroke="#3b82f6" strokeWidth="2" />
+          <text x="60" y="93" fontSize="10" fill="#1e40af" fontWeight="800">Execution Status / Flags</text>
+        </g>
+
+      </svg>
+    </div>
   )
 }
 
@@ -362,6 +532,7 @@ function RegisterTable() {
           <th>Purpose</th>
         </tr>
       </thead>
+      <br />
       <tbody>
         {[
           ["X0 – X7", "W0–W7", "Function arguments & return values"],
@@ -370,9 +541,9 @@ function RegisterTable() {
           ["X29 / X30", "FP / LR", "Frame Pointer / Link Register"],
           ["V0 – V31", "Q/D/S/H/B", "SIMD & FP — 128-bit vector banks"],
           ["Z0 – Z31", "—", "SVE2 scalable vectors (128–2048b, impl-defined)"],
-          ["ZA Tile", "—", "SME2 matrix accumulator array"]
+          ["ZA Tile", "—", "SME matrix accumulator array"]
         ].map(([reg, alias, purpose], idx) => (
-          <tr key={idx}>
+          <tr key={idx} >
             <td className="rn">{reg}</td>
             <td>{alias}</td>
             <td>{purpose}</td>
@@ -382,7 +553,6 @@ function RegisterTable() {
     </table>
   )
 }
-
 function InstructionTypeTable() {
   return (
     <table className="rt">
@@ -417,36 +587,42 @@ function InstructionTypeTable() {
   )
 }
 
-function ComparisonTable() {
+function ISAClarification() {
   return (
-    <table className="cmp">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>ARMv8.x</th>
-          <th>ARMv9.2-A</th>
-          <th>Advantage</th>
-        </tr>
-      </thead>
-      <tbody>
-        {[
-          ["Security Model", "2 states (Sec/NS)", "4 states via RME", "✔ Confidential Compute"],
-          ["SIMD / Vector", "NEON · fixed 128-bit", "SVE2 · 128–2048b", "✔ HPC / AI scalability"],
-          ["Matrix / AI", "No matrix engine", "SME2 · ZA GEMM", "✔ On-device AI/ML"],
-          ["Memory Safety", "Software only", "MTE hardware tags", "✔ Near-zero overhead"],
-          ["Anti-Exploit", "PAC (v8.3+) partial", "PAC+BTI+MTE+RME", "✔ Multi-layer defence"],
-          ["Concurrency", "No hardware TM", "TME atomic txns", "✔ Faster lock-free code"],
-          ["ISA Encoding", "32-bit A64 only", "+SVE2/SME2 enc.", "✔ Broader compute"]
-        ].map(([feat, v8, v9, adv], idx) => (
-          <tr key={idx}>
-            <td className="cprop">{feat}</td>
-            <td className="cv8">{v8}</td>
-            <td className="cv9">{v9}</td>
-            <td className="cwin">{adv}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="isa-info-grid">
+      <div className="isa-info-box">
+        <div className="isa-info-title">Immediate & Offset Ranges</div>
+        <div className="isa-info-content">
+          <ul>
+            <li>Arithmetic: 12-bit (opt. shifted)</li>
+            <li>Load/Store: Scaled by access size</li>
+            <li>Branch: PC-relative offsets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="isa-info-box">
+        <div className="isa-info-title">Condition Flags (NZCV)</div>
+        <div className="isa-info-content">
+          <div className="nzcv-tag-grid">
+            <div className="nzcv-tag"><strong>N</strong> Neg</div>
+            <div className="nzcv-tag"><strong>Z</strong> Zero</div>
+            <div className="nzcv-tag"><strong>C</strong> Carry</div>
+            <div className="nzcv-tag"><strong>V</strong> Oflw</div>
+          </div>
+          <p style={{ fontSize: '8.5px', marginTop: '2px', color: '#64748b' }}>Used by CMP & Conditional Branches</p>
+        </div>
+      </div>
+
+      <div className="isa-info-box">
+        <div className="isa-info-title">Load/Store Architecture</div>
+        <div className="isa-info-content">
+          <p style={{ fontSize: '9.2px', lineHeight: 1.25 }}>
+            Memory is accessed <b>only</b> via load/store instructions. ALU instructions operate on <b>registers only</b>.
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -465,7 +641,6 @@ function TeamTable() {
     <div className="team-card">
       <div className="team-hdr-y">B.Tech CSE 2024–28 Batch · Semester 4</div>
       <div className="team-hdr-w">23CSE213 — Computer Organization and Architecture</div>
-      <div className="team-no">Team No :</div>
       <table className="team-tbl">
         <thead>
           <tr>
