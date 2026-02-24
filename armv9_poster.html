@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ARMv9.2 Architecture – COA Poster</title>
+    <title>ARMv9.2-A Architecture – COA Poster</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap"
         rel="stylesheet">
     <style>
         * {
@@ -15,35 +15,33 @@
         }
 
         body {
-            background: #c3cfd9;
+            background: #b0bec5;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
+            padding: 12px;
             font-family: 'Barlow', sans-serif;
         }
 
+        /* ── POSTER SHELL ── */
         .poster {
-            width: 3000px;
-            /* Extra wide landscape for maximum technical density */
-            min-height: 2120px;
-            background: #ffffff;
-            position: relative;
+            width: 1567px;
+            background: #f0f2f5;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.28);
         }
 
-        /* HEADER */
+        /* ── HEADER ── */
         .hdr {
-            background: #001A4F;
+            background: linear-gradient(135deg, #001A4F 0%, #002a7a 60%, #0040C1 100%);
             display: flex;
             align-items: stretch;
-            min-height: 120px;
+            min-height: 60px;
+            border-bottom: 4px solid #00B4DB;
         }
 
         .hdr-left {
-            padding: 15px 40px;
+            padding: 10px 22px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -52,11 +50,11 @@
 
         .hdr-left h1 {
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 64px;
+            font-size: 32px;
             font-weight: 900;
             color: #fff;
-            letter-spacing: -0.5px;
             line-height: 1;
+            letter-spacing: -0.5px;
         }
 
         .hdr-left h1 em {
@@ -65,30 +63,28 @@
         }
 
         .hdr-left .sub {
-            color: #7DA4FF;
-            font-size: 16px;
-            margin-top: 8px;
+            color: #a0c4ff;
+            font-size: 7.5px;
+            margin-top: 4px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
         }
 
         .hdr-specs {
-            background: #001236;
-            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 16px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 5px;
-            min-width: 350px;
-            border-left: 6px solid #00B4DB;
+            gap: 3px;
+            min-width: 220px;
+            border-left: 3px solid #00B4DB;
         }
 
         .hdr-specs .sp {
-            font-size: 13.5px;
-            color: #99BAFF;
-            display: flex;
-            gap: 12px;
+            font-size: 7px;
+            color: #a0c4ff;
         }
 
         .hdr-specs .sp strong {
@@ -99,91 +95,152 @@
 
         .hdr-logo {
             background: #0040C1;
-            padding: 10px 45px;
+            padding: 8px 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 250px;
+            min-width: 120px;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .arm-logo {
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 58px;
+            font-size: 28px;
             font-weight: 900;
             color: #fff;
             letter-spacing: -1px;
         }
 
-        .accent {
-            height: 7px;
-            background: linear-gradient(90deg, #0040C1 0%, #00B4DB 35%, #0040C1 65%, #001A4F 100%);
-        }
-
+        /* ── SUBBAR ── */
         .subbar {
-            background: #F0F4FF;
-            border-bottom: 2.5px solid #D0DBF0;
-            padding: 12px 40px;
+            background: #1e2d4f;
+            padding: 5px 20px;
             display: flex;
-            gap: 50px;
-            align-items: center;
+            gap: 0;
+            align-items: stretch;
         }
 
         .sb-item {
-            font-size: 14px;
-            color: #3B5A9A;
+            font-size: 7px;
+            color: #a0c4ff;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sb-item:first-child {
+            padding-left: 0;
+        }
+
+        .sb-item:last-child {
+            border-right: none;
         }
 
         .sb-item strong {
-            color: #001A4F;
+            color: #fff;
             font-weight: 700;
         }
 
         .sbd {
-            width: 12px;
-            height: 12px;
-            border: 2px solid;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             display: inline-block;
-            margin-right: 10px;
+            flex-shrink: 0;
         }
 
-        /* BODY */
+        /* ── SECTION HEADER STRIPE ── */
+        .sec-stripe {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 3px 8px;
+            margin-bottom: 5px;
+            background: #001A4F;
+            border-radius: 3px;
+        }
+
+        .sec-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            font-weight: 900;
+            color: #00B4DB;
+            margin-right: 6px;
+            line-height: 1;
+        }
+
+        .sec-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 7.5px;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            line-height: 1;
+        }
+
+        .sec-mark {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 6px;
+            font-weight: 700;
+            color: #00B4DB;
+            background: rgba(0, 180, 219, 0.15);
+            padding: 1px 5px;
+            border-radius: 2px;
+        }
+
+        /* ── BODY GRID – 4 equal columns, each a flex column ── */
         .body {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            flex: 1;
-            padding: 20px 25px;
-            gap: 20px;
+            gap: 7px;
+            padding: 7px;
+            align-items: stretch;
         }
 
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* ── CARD ── */
         .card {
-            border: 1.5px solid #D0DBF0;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border: 1px solid #D0DBF0;
+            border-radius: 5px;
             overflow: hidden;
             background: #fff;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            flex-shrink: 0;
         }
 
+        .card.grow {
+            flex: 1;
+        }
+
+        /* ── CARD HEADER ── */
         .ch {
-            padding: 12px 22px;
+            padding: 5px 10px;
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 17px;
+            font-size: 7.8px;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1.4px;
             text-transform: uppercase;
             color: #fff;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 6px;
         }
 
         .ch::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.45);
             flex-shrink: 0;
         }
 
@@ -203,149 +260,122 @@
             background: #1A365D;
         }
 
-        .cb {
-            padding: 20px 25px;
+        .ch-teal {
+            background: #006B63;
         }
 
+        .ch-grn {
+            background: #166534;
+        }
+
+        .cb {
+            padding: 7px 9px;
+        }
+
+        /* ── TYPOGRAPHY ── */
         p,
         li {
-            font-size: 14px;
+            font-size: 6.5px;
             color: #2D3748;
-            line-height: 1.6;
+            line-height: 1.55;
         }
 
         ul {
-            padding-left: 25px;
-            margin: 10px 0;
+            padding-left: 12px;
+            margin: 3px 0;
         }
 
         ul li {
-            margin-bottom: 8px;
+            margin-bottom: 2.5px;
         }
 
         h4 {
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 18px;
+            font-size: 7px;
             font-weight: 800;
             color: #001A4F;
-            margin: 15px 0 10px;
+            margin: 5px 0 3px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #E2E8F0;
         }
 
         .hl {
-            background: #F0F7FF;
-            border-left: 6px solid #0040C1;
-            padding: 12px 18px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            font-size: 15px;
-            color: #1A365D;
+            background: #EFF6FF;
+            border-left: 3px solid #0040C1;
+            padding: 4px 7px;
+            margin-bottom: 5px;
+            border-radius: 0 4px 4px 0;
+            font-size: 6.5px;
+            color: #1e3a6e;
+            line-height: 1.5;
         }
 
-        /* SPEC GRID */
+        /* ── SPEC GRID ── */
         .sg {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
+            gap: 3px;
+            margin: 4px 0;
+        }
+
+        .sg3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3px;
+            margin: 4px 0;
         }
 
         .st {
-            background: #fff;
-            border: 1.8px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 10px 15px;
+            border: 1px solid #E2E8F0;
+            border-radius: 3px;
+            padding: 3px 5px;
+            background: #fafbff;
         }
 
         .st .sk {
-            font-size: 11.5px;
+            font-size: 5.5px;
             color: #64748B;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.8px;
         }
 
         .st .sv {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 15px;
+            font-size: 6.8px;
             color: #001A4F;
-            font-weight: 600;
-        }
-
-        /* HOLLOW ARCH BOXES */
-        .abox {
-            border: 2px solid;
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin: 8px auto;
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
             font-weight: 700;
-            background: transparent !important;
         }
 
-        .a1 {
-            border-color: #0040C1;
-            color: #0040C1;
-        }
-
-        .a2 {
-            border-color: #0088A8;
-            color: #0088A8;
-        }
-
-        .a3 {
-            border-color: #1A365D;
-            color: #1A365D;
-        }
-
-        .a4 {
-            border-color: #006B63;
-            color: #006B63;
-        }
-
-        .arow {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 10px 0;
-        }
-
-        .arr {
-            text-align: center;
-            color: #CBD5E0;
-            font-size: 20px;
-            line-height: 1.4;
-        }
-
-        /* REGISTER TABLE */
+        /* ── TABLES ── */
         .rt {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
-            margin-top: 15px;
+            font-size: 6px;
+            margin-top: 3px;
         }
 
         .rt th {
             background: #001A4F;
             color: #fff;
-            padding: 10px 15px;
+            padding: 3.5px 6px;
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 13px;
+            font-size: 6.2px;
             font-weight: 700;
-            letter-spacing: 1px;
             text-align: left;
+            letter-spacing: 0.5px;
         }
 
         .rt td {
-            padding: 10px 15px;
-            border-bottom: 2px solid #F1F5F9;
+            padding: 3px 6px;
+            border-bottom: 1px solid #EEF2F7;
             font-family: 'JetBrains Mono', monospace;
+            font-size: 5.9px;
         }
 
         .rt tr:nth-child(even) td {
-            background: #F8FAFC;
+            background: #F8FAFF;
         }
 
         .rn {
@@ -353,86 +383,150 @@
             font-weight: 700;
         }
 
-        .rd {
-            color: #1A365D;
-            font-family: 'Barlow', sans-serif;
-            font-size: 14px;
+        /* ── ISA FORMAT BARS ── */
+        .fmt-row {
+            display: flex;
+            width: 100%;
+            border: 1px solid #D0DBF0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 3px 0;
         }
 
-        /* ADDRESSING CHIPS - Horizontally Optimized Grid */
-        .ac-container {
+        .fmt-seg {
+            text-align: center;
+            padding: 4px 1px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 5px;
+            font-weight: 700;
+            color: #fff;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            line-height: 1.3;
+        }
+
+        .fmt-seg:last-child {
+            border-right: none;
+        }
+
+        .fs-op {
+            background: #0040C1;
+        }
+
+        .fs-rm {
+            background: #1A365D;
+        }
+
+        .fs-sh {
+            background: #0088A8;
+        }
+
+        .fs-rn {
+            background: #006B63;
+        }
+
+        .fs-rd {
+            background: #52278C;
+        }
+
+        .fs-im {
+            background: #0d7490;
+        }
+
+        .fs-of {
+            background: #475569;
+        }
+
+        .fs-op2 {
+            background: #065f46;
+        }
+
+        /* ── ADDRESSING CHIPS ── */
+        .ac-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 12px 0;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px;
+            margin: 4px 0;
         }
 
         .ac-chip {
-            background: #F0F7FF;
-            border: 1.8px solid #0040C1;
-            color: #001A4F;
-            padding: 8px 14px;
-            border-radius: 8px;
-            /* Slightly more square for alignment */
-            font-size: 13px;
+            background: #EFF6FF;
+            border: 1px solid #93c5fd;
+            color: #1e3a8a;
+            padding: 2.5px 4px;
+            border-radius: 3px;
+            font-size: 5.5px;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
             text-align: center;
         }
 
-        /* CONDITION TABLE */
-        .ct {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
+        /* ── PIPELINE STRIP ── */
+        .pipe-wrap {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin: 5px 0;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #D0DBF0;
         }
 
-        .ct th {
-            background: #52278C;
-            color: #fff;
-            padding: 8px 12px;
+        .pipe-box {
+            flex: 1;
+            padding: 6px 2px;
+            text-align: center;
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            text-align: left;
-        }
-
-        .ct td {
-            padding: 6px 12px;
-            border-bottom: 1px solid #ede8f5;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-        }
-
-        .ct tr:nth-child(even) td {
-            background: #f8f5ff;
-        }
-
-        .ctn {
-            color: #52278C;
-            font-weight: 700;
-        }
-
-        /* PIPELINE SVG STYLE (Replaces CSS Pipeline) */
-        .svg-lbl {
+            font-size: 7px;
             font-weight: 800;
-            font-size: 10px;
-            fill: #1A365D;
+            color: #fff;
+            line-height: 1.3;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .svg-sub {
-            font-size: 8px;
-            fill: #4A5568;
+        .pipe-box:last-child {
+            border-right: none;
         }
 
-        /* FEATURE ITEMS */
+        .pipe-sub {
+            font-size: 4.5px;
+            font-weight: 400;
+            display: block;
+            opacity: 0.85;
+            margin-top: 1px;
+        }
+
+        .pb1 {
+            background: #001A4F;
+        }
+
+        .pb2 {
+            background: #1A365D;
+        }
+
+        .pb3 {
+            background: #0040C1;
+        }
+
+        .pb4 {
+            background: #0088A8;
+        }
+
+        .pb5 {
+            background: #b45309;
+        }
+
+        .pb6 {
+            background: #15803d;
+        }
+
+        /* ── FEATURE ITEMS ── */
         .fi {
             display: flex;
             align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 2px dashed #E2E8F0;
+            gap: 6px;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #E2E8F0;
         }
 
         .fi:last-child {
@@ -442,106 +536,120 @@
         }
 
         .fi-num {
-            width: 32px;
-            height: 32px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: transparent;
-            border: 2.5px solid #0040C1;
+            border: 1.5px solid #0040C1;
             color: #0040C1;
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 18px;
+            font-size: 8px;
             font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            margin-top: 3px;
+            margin-top: 1px;
         }
 
         .fi-t strong {
             display: block;
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: 19px;
+            font-size: 7.5px;
             font-weight: 800;
             color: #001A4F;
-            margin-bottom: 4px;
+            margin-bottom: 1px;
         }
 
         .fi-t span {
-            font-size: 14px;
+            font-size: 6px;
             color: #4A5568;
+            line-height: 1.45;
         }
 
-        /* APPLICATIONS BAR */
-        .app-bar {
-            margin-top: 15px;
-            background: #0d1b2a;
-            border-radius: 8px;
-            padding: 12px 20px;
-        }
-
-        .app-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 13px;
-            color: #00B4DB;
-            font-weight: 800;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .app-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .app-chip {
-            background: #1b263b;
-            color: #e0e1dd;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: 12px;
-            border: 1px solid #415a77;
-        }
-
-        /* TEAM TABLE */
-        .team-section {
+        /* ── COMPARISON TABLE ── */
+        .cmp {
             width: 100%;
-            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        .cmp th {
+            background: #001A4F;
+            color: #fff;
+            padding: 3.5px 6px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 6.2px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .cmp td {
+            padding: 3px 6px;
+            border-bottom: 1px solid #E8EFF8;
+            font-size: 5.9px;
+        }
+
+        .cmp tr:nth-child(even) td {
+            background: #F5F8FF;
+        }
+
+        .cprop {
+            font-family: 'JetBrains Mono', monospace;
+            color: #001A4F;
+            font-weight: 700;
+            font-size: 5.5px;
+        }
+
+        .cv8 {
+            color: #64748B;
+        }
+
+        .cv9 {
+            color: #0040C1;
+            font-weight: 700;
+        }
+
+        .cwin {
+            color: #15803d;
+            font-weight: 700;
+            font-size: 5.5px;
+        }
+
+        /* ── TEAM TABLE ── */
+        .team-card {
             border: 2px solid #000;
+            border-radius: 4px;
+            overflow: hidden;
             font-family: 'Arial', sans-serif;
             background: #fff;
-            position: relative;
-            z-index: 10;
+            flex-shrink: 0;
         }
 
-        .team-hdr-yellow {
-            background: #ffff00;
+        .team-hdr-y {
+            background: #FFE600;
             color: #000;
-            padding: 10px;
+            padding: 5px;
             text-align: center;
-            font-size: 24px;
+            font-size: 9px;
             font-weight: 900;
             border-bottom: 2px solid #000;
         }
 
-        .team-hdr-white {
+        .team-hdr-w {
             background: #fff;
             color: #000;
-            padding: 8px;
+            padding: 3px;
             text-align: center;
-            font-size: 20px;
+            font-size: 7px;
             font-weight: 700;
-            border-bottom: 2px solid #000;
+            border-bottom: 1.5px solid #000;
         }
 
         .team-no {
-            padding: 10px 15px;
-            font-size: 22px;
+            padding: 3px 8px;
+            font-size: 7px;
             font-weight: 700;
-            border-bottom: 2px solid #000;
+            border-bottom: 1.5px solid #000;
+            background: #fffdf0;
         }
 
         .team-tbl {
@@ -551,32 +659,44 @@
 
         .team-tbl th,
         .team-tbl td {
-            border: 1px solid #000;
-            padding: 10px;
+            border: 1px solid #ccc;
+            padding: 3.5px 5px;
             text-align: center;
-            font-size: 18px;
-            height: 45px;
+            font-size: 6.5px;
             text-transform: uppercase;
-            /* Names and Roll Nos in ALL CAPS */
         }
 
         .team-tbl th {
             font-weight: 700;
+            background: #fffde0;
+            border-color: #999;
         }
 
-        /* FOOTER */
+        /* ── REFS ── */
+        .refs {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 5.8px;
+            line-height: 2;
+            color: #4A5568;
+        }
+
+        .refs span {
+            color: #0040C1;
+            font-weight: 700;
+        }
+
+        /* ── FOOTER ── */
         .footer {
             background: #001A4F;
-            padding: 20px 45px;
+            padding: 6px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 6px solid #00B4DB;
-            margin-top: auto;
+            border-top: 3px solid #00B4DB;
         }
 
         .footer p {
-            font-size: 14px;
+            font-size: 6px;
             color: #7DA4FF;
             font-family: 'JetBrains Mono', monospace;
         }
@@ -586,15 +706,21 @@
             font-weight: 700;
         }
 
-        .side-cards {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+        @media print {
+            @page {
+                size: A3 landscape;
+                margin: 0;
+            }
 
-        .side-cards .card {
-            flex: 1;
-            margin-bottom: 0;
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .poster {
+                width: 100%;
+                box-shadow: none;
+            }
         }
     </style>
 </head>
@@ -602,739 +728,703 @@
 <body>
     <div class="poster">
 
-        <!-- HEADER -->
         <div class="hdr">
             <div class="hdr-left">
-                <h1><em>ARM</em>v9.2-A Architecture</h1>
-                <div class="sub">23CSE213 · Computer Organization and Architecture · B.Tech CSE 2024–28 · Semester 4
+                <h1><em>ARM</em>v9.2-A Architecture <span
+                        style="font-size:24px; color:#00B4DB; font-weight:600;">(AArch64)</span></h1>
+                <div class="sub">23CSE213 · Computer Organization &amp; Architecture · B.Tech CSE 2024–28 · Semester 4
                 </div>
             </div>
             <div class="hdr-specs">
-                <div class="sp"><strong>Arch Profile:</strong> A64 ISA (AArch64)</div>
-                <div class="sp"><strong>Feature Set:</strong> RME, SME2, MTE, PAC, BTI</div>
-                <div class="sp"><strong>Top Core:</strong> Cortex-X4 (v9.2-A Profile)</div>
-                <div class="sp"><strong>Security:</strong> Realm Management Execution</div>
+                <div class="sp"><strong>Arch:</strong> AArch64 · A64 ISA · Fixed 32-bit instructions · RISC</div>
+                <div class="sp"><strong>Features:</strong> RME · SME2 · SVE2 · MTE · PAC · BTI · TME · BRBE</div>
+                <div class="sp"><strong>Execution:</strong> EL0 (User) · EL1 (OS) · EL2 (Hyp) · EL3 (Secure)</div>
+                <div class="sp"><strong>Memory Model:</strong> Weakly ordered · Acquire-release semantics</div>
             </div>
             <div class="hdr-logo">
                 <div class="arm-logo">ARM™</div>
             </div>
         </div>
-        <div class="accent"></div>
 
-        <!-- SUBBAR -->
         <div class="subbar">
-            <div class="sb-item"><span class="sbd" style="border-color:#0040C1;"></span><strong>Core Family:</strong>
-                Cortex-X4 / A720 / A520</div>
-            <div class="sb-item"><span class="sbd" style="border-color:#0088A8;"></span><strong>Registers:</strong> 31x
-                64-bit GPRs + SP + PC</div>
-            <div class="sb-item"><span class="sbd" style="border-color:#1A365D;"></span><strong>Isolation:</strong>
-                Hardware Realms & CCA</div>
-            <div class="sb-item"><span class="sbd" style="border-color:#006B63;"></span><strong>Technology:</strong>
-                TSMC 3nm-4nm Fabrications</div>
+            <div class="sb-item"><span class="sbd" style="background:#00B4DB;"></span><strong>ISA:</strong> 32-bit
+                fixed-width · AArch64 only</div>
+            <div class="sb-item"><span class="sbd" style="background:#4ade80;"></span><strong>Registers:</strong> 31×
+                64-bit GPR + SP + PC + V/Z/ZA</div>
+            <div class="sb-item"><span class="sbd" style="background:#f59e0b;"></span><strong>Pipeline:</strong>
+                Out-of-Order · 8-wide Fetch/Decode/Dispatch</div>
+            <div class="sb-item"><span class="sbd" style="background:#a78bfa;"></span><strong>Security:</strong> 4
+                States — Root · Realm · Secure · Non-Secure</div>
+            <div class="sb-item"><span class="sbd" style="background:#fb923c;"></span><strong>Cache:</strong> L1 64KB
+                I+D · L2 512KB–2MB private · DSU-120 L3</div>
         </div>
 
-        <!-- BODY -->
         <div class="body">
 
-            <!-- COLUMN 1: ARCH & REGISTERS -->
-            <div>
-                <div class="card">
-                    <div class="ch ch-blue">Architecture Overview</div>
-                    <div class="cb">
-                        <div class="hl"><strong>ARMv9.2-A</strong> represents the leading edge of 64-bit computing,
-                            introducing <strong>RME</strong> for dynamic confidential compute environments.</div>
+            <div class="col">
 
-                        <h4>System SoC Architecture (SVG Visual)</h4>
-                        <svg viewBox="0 0 320 280" width="100%" xmlns="http://www.w3.org/2000/svg"
-                            style="font-family:'JetBrains Mono',monospace;border:2.5px solid #D0DBF0;border-radius:10px;background:transparent;margin-bottom:15px;margin-top:10px;">
+                <div class="sec-stripe">
+                    <span class="sec-num">①</span>
+                    <span class="sec-title">Architecture, Registers &amp; ISA</span>
+                    <span class="sec-mark">4 Marks</span>
+                </div>
+
+                <div class="card">
+                    <div class="ch ch-blue">1.1 · Architecture Overview</div>
+                    <div class="cb">
+                        <div class="hl"><strong>ARMv9.2-A</strong> is a 64-bit RISC architecture (AArch64) featuring
+                            <strong>RME</strong> for confidential compute, <strong>SME2</strong> for AI/ML, and
+                            <strong>SVE2</strong> for scalable vectorisation across mobile, server, and HPC domains.
+                        </div>
+                        <svg viewBox="0 0 295 178" width="100%" xmlns="http://www.w3.org/2000/svg"
+                            style="font-family:'JetBrains Mono',monospace;border:1px solid #D0DBF0;border-radius:4px;display:block;margin-bottom:5px;">
                             <defs>
-                                <marker id="arr-b" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                                    <path d="M0,0 L6,3 L0,6 Z" fill="#0040C1" />
+                                <marker id="ab" markerWidth="5" markerHeight="4" refX="4" refY="2" orient="auto">
+                                    <path d="M0,0 L5,2 L0,4 Z" fill="#334155" />
                                 </marker>
                             </defs>
-
-                            <!-- SoC Boundary -->
-                            <rect x="5" y="5" width="310" height="270" rx="10" fill="none" stroke="#E2E8F0"
-                                stroke-width="2" stroke-dasharray="5,5" />
-                            <text x="15" y="20" fill="#CBD5E0" font-size="8" font-weight="700">ARMv9.2-A SoC
+                            <rect x="2" y="2" width="291" height="174" rx="5" fill="none" stroke="#CBD5E1"
+                                stroke-width="1" stroke-dasharray="4,3" />
+                            <text x="7" y="11" fill="#94a3b8" font-size="4.5" font-weight="700">ARMv9.2-A SoC
                                 BOUNDARY</text>
 
-                            <!-- Cores -->
-                            <rect x="25" y="35" width="80" height="40" rx="5" fill="none" stroke="#0040C1"
-                                stroke-width="2" />
-                            <text x="65" y="55" text-anchor="middle" fill="#0040C1" font-size="9"
+                            <rect x="8" y="16" width="74" height="22" rx="3" fill="#EFF6FF" stroke="#0040C1"
+                                stroke-width="1.5" />
+                            <text x="45" y="25" text-anchor="middle" fill="#0040C1" font-size="5"
                                 font-weight="800">CORTEX-X4</text>
-                            <text x="65" y="65" text-anchor="middle" fill="#4A5568" font-size="7">MAX PERF</text>
+                            <text x="45" y="33" text-anchor="middle" fill="#475569" font-size="4">Max Performance · ~15%
+                                IPC↑ vs X3</text>
 
-                            <rect x="25" y="85" width="80" height="40" rx="5" fill="none" stroke="#0088A8"
-                                stroke-width="2" />
-                            <text x="65" y="105" text-anchor="middle" fill="#0088A8" font-size="9"
+                            <rect x="8" y="44" width="74" height="22" rx="3" fill="#f0fdfa" stroke="#0088A8"
+                                stroke-width="1.5" />
+                            <text x="45" y="53" text-anchor="middle" fill="#0088A8" font-size="5"
                                 font-weight="800">CORTEX-A720</text>
-                            <text x="65" y="115" text-anchor="middle" fill="#4A5568" font-size="7">EFFICIENCY</text>
+                            <text x="45" y="61" text-anchor="middle" fill="#475569" font-size="4">Performance-Efficiency
+                                Tier</text>
 
-                            <!-- DSU -->
-                            <rect x="130" y="35" width="50" height="90" rx="5" fill="none" stroke="#1A365D"
+                            <rect x="8" y="72" width="74" height="22" rx="3" fill="#f0fdf4" stroke="#166534"
+                                stroke-width="1.5" />
+                            <text x="45" y="81" text-anchor="middle" fill="#166534" font-size="5"
+                                font-weight="800">CORTEX-A520</text>
+                            <text x="45" y="89" text-anchor="middle" fill="#475569" font-size="4">Ultra-Efficiency ·
+                                Pure 64-bit</text>
+
+                            <rect x="90" y="16" width="46" height="78" rx="3" fill="#f8fafc" stroke="#1A365D"
+                                stroke-width="1.5" />
+                            <text x="113" y="58" text-anchor="middle" fill="#1A365D" font-size="4.5" font-weight="800"
+                                transform="rotate(-90,113,58)">DSU-120 · L3 Cache</text>
+                            <line x1="82" y1="27" x2="90" y2="27" stroke="#334155" stroke-width="1"
+                                marker-end="url(#ab)" />
+                            <line x1="82" y1="55" x2="90" y2="55" stroke="#334155" stroke-width="1"
+                                marker-end="url(#ab)" />
+                            <line x1="82" y1="83" x2="90" y2="83" stroke="#334155" stroke-width="1"
+                                marker-end="url(#ab)" />
+
+                            <rect x="145" y="16" width="56" height="78" rx="3" fill="#fafafa" stroke="#001A4F"
                                 stroke-width="2" />
-                            <text x="155" y="75" text-anchor="middle" fill="#1A365D" font-size="9" font-weight="900"
-                                transform="rotate(-90, 155, 75)">DSU-120</text>
+                            <text x="173" y="58" text-anchor="middle" fill="#001A4F" font-size="4.5" font-weight="800"
+                                transform="rotate(-90,173,58)">CMN-700 COHERENT MESH</text>
+                            <line x1="136" y1="55" x2="145" y2="55" stroke="#334155" stroke-width="1"
+                                marker-end="url(#ab)" />
 
-                            <line x1="105" y1="55" x2="130" y2="55" stroke="#1A365D" stroke-width="1.5"
-                                marker-end="url(#arr-b)" />
-                            <line x1="105" y1="105" x2="130" y2="105" stroke="#1A365D" stroke-width="1.5"
-                                marker-end="url(#arr-b)" />
+                            <rect x="8" y="103" width="105" height="19" rx="3" fill="#f0fdf4" stroke="#006B63"
+                                stroke-width="1.5" />
+                            <text x="60" y="115" text-anchor="middle" fill="#006B63" font-size="4.8"
+                                font-weight="800">REALM MANAGEMENT EXT. (RME)</text>
+                            <line x1="113" y1="112" x2="145" y2="112" stroke="#006B63" stroke-width="1"
+                                marker-end="url(#ab)" />
 
-                            <!-- Interconnect -->
-                            <rect x="205" y="35" width="90" height="210" rx="5" fill="none" stroke="#001A4F"
-                                stroke-width="2.5" />
-                            <text x="250" y="140" text-anchor="middle" fill="#001A4F" font-size="10" font-weight="900"
-                                transform="rotate(-90, 250, 140)">CHI-E MESH INTERCONNECT</text>
+                            <rect x="8" y="128" width="105" height="19" rx="3" fill="#f8fafc" stroke="#1A365D"
+                                stroke-width="1.5" />
+                            <text x="60" y="140" text-anchor="middle" fill="#1A365D" font-size="4.8"
+                                font-weight="800">MEM I/O · DDR5X · PCIe Gen 5</text>
+                            <line x1="113" y1="137" x2="145" y2="137" stroke="#1A365D" stroke-width="1"
+                                marker-end="url(#ab)" />
 
-                            <line x1="180" y1="80" x2="205" y2="80" stroke="#001A4F" stroke-width="2"
-                                marker-end="url(#arr-b)" />
+                            <rect x="215" y="40" width="72" height="20" rx="3" fill="#f8fafc" stroke="#64748B"
+                                stroke-width="1" />
+                            <text x="251" y="52" text-anchor="middle" fill="#475569" font-size="4.2"
+                                font-weight="700">EXTERNAL RAM / STORAGE</text>
+                            <line x1="201" y1="55" x2="215" y2="50" stroke="#64748B" stroke-width="1"
+                                marker-end="url(#ab)" />
 
-                            <!-- Peripherals -->
-                            <rect x="25" y="155" width="155" height="40" rx="5" fill="none" stroke="#006B63"
-                                stroke-width="2" />
-                            <text x="102" y="175" text-anchor="middle" fill="#006B63" font-size="9"
-                                font-weight="800">REALM MGMT ENGINE (RME)</text>
-                            <text x="102" y="185" text-anchor="middle" fill="#4A5568" font-size="7">ISOLATION HUB</text>
-                            <line x1="180" y1="175" x2="205" y2="175" stroke="#006B63" stroke-width="2"
-                                marker-end="url(#arr-b)" />
+                            <rect x="8" y="153" width="50" height="16" rx="3" fill="#fdf4ff" stroke="#7e22ce"
+                                stroke-width="1.2" />
+                            <text x="33" y="163" text-anchor="middle" fill="#7e22ce" font-size="4.5"
+                                font-weight="800">SME2 · ZA</text>
 
-                            <rect x="25" y="205" width="155" height="40" rx="5" fill="none" stroke="#1A365D"
-                                stroke-width="2" />
-                            <text x="102" y="225" text-anchor="middle" fill="#1A365D" font-size="9"
-                                font-weight="800">MEMORY / I/O CTRL</text>
-                            <text x="102" y="235" text-anchor="middle" fill="#4A5568" font-size="7">DDR5X / PCIe GEN
-                                5</text>
-                            <line x1="180" y1="225" x2="205" y2="225" stroke="#1A365D" stroke-width="2"
-                                marker-end="url(#arr-b)" />
+                            <rect x="64" y="153" width="50" height="16" rx="3" fill="#fff7ed" stroke="#b45309"
+                                stroke-width="1.2" />
+                            <text x="89" y="163" text-anchor="middle" fill="#b45309" font-size="4.5"
+                                font-weight="800">SVE2 · Z regs</text>
 
-                            <!-- System Exit -->
-                            <line x1="250" y1="245" x2="250" y2="265" stroke="#001A4F" stroke-width="2"
-                                marker-end="url(#arr-b)" />
-                            <text x="250" y="260" text-anchor="start" fill="#4A5568" font-size="7" dx="5">TO EXTERNAL
-                                RAM/STORAGE</text>
+                            <rect x="120" y="153" width="80" height="16" rx="3" fill="#f0f9ff" stroke="#0369a1"
+                                stroke-width="1.2" />
+                            <text x="160" y="163" text-anchor="middle" fill="#0369a1" font-size="4.5"
+                                font-weight="800">PMUv3.5 · ETE Trace · BRBE</text>
                         </svg>
-
                         <div class="sg">
                             <div class="st">
-                                <div class="sk">Fetch Width</div>
-                                <div class="sv">10-Wide OOO</div>
+                                <div class="sk">Fetch / Decode</div>
+                                <div class="sv">8-Wide OOO</div>
                             </div>
                             <div class="st">
-                                <div class="sk">Issue Width</div>
-                                <div class="sv">10-Wide Dispatch</div>
-                            </div>
-                            <div class="st">
-                                <div class="sk">ROB Window</div>
+                                <div class="sk">ROB Capacity</div>
                                 <div class="sv">384 Entries</div>
                             </div>
                             <div class="st">
-                                <div class="sk">Cache L1</div>
-                                <div class="sv">64KB I / 64KB D</div>
-                            </div>
-                            <div class="st">
-                                <div class="sk">Cache L2</div>
-                                <div class="sv">1MB-2MB (Private)</div>
+                                <div class="sk">L1 Cache</div>
+                                <div class="sv">64KB I + 64KB D</div>
                             </div>
                             <div class="st">
                                 <div class="sk">Address Space</div>
-                                <div class="sv">48/52-bit PA</div>
+                                <div class="sv">48 / 52-bit PA</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="ch ch-cyan">Register Structure (AArch64)</div>
+                <div class="card grow">
+                    <div class="ch ch-cyan">1.2 · Register Structure (AArch64)</div>
                     <div class="cb">
-                        <h4>X/W Register Logic Map (Aliasing)</h4>
-                        <svg viewBox="0 0 350 120" width="100%" xmlns="http://www.w3.org/2000/svg"
-                            style="font-family:'JetBrains Mono',monospace;border:2.5px solid #D0DBF0;border-radius:10px;background:transparent;margin-bottom:15px;">
-
-                            <!-- Header -->
-                            <text x="12" y="20" fill="#0040C1" font-size="10" font-weight="900">AARCH64 REGISTER
-                                COMPATIBILITY:</text>
-
-                            <!-- X-Reg -->
-                            <text x="12" y="45" fill="#4A5568" font-size="9.5" font-weight="700">Xn (64-bit):</text>
-                            <rect x="85" y="32" width="255" height="18" rx="4" fill="none" stroke="#0040C1"
-                                stroke-width="2" />
-                            <text x="212" y="45" text-anchor="middle" fill="#001A4F" font-size="9" font-weight="700">63
-                                ─────────────── 32 │ 31 ──────────── 0</text>
-
-                            <!-- W-Reg -->
-                            <text x="12" y="75" fill="#4A5568" font-size="9.5" font-weight="700">Wn (32-bit):</text>
-                            <rect x="210" y="62" width="130" height="18" rx="4" fill="none" stroke="#1A365D"
-                                stroke-width="2" />
-                            <text x="275" y="75" text-anchor="middle" fill="#1A365D" font-size="9"
-                                font-weight="800">[31:0] ONLY</text>
-
-                            <!-- Info -->
-                            <text x="12" y="105" font-family="Barlow" font-size="11" fill="#4A5568">SP (Stack), PC
-                                (Program), X29 (Frame), X30 (Link)</text>
+                        <svg viewBox="0 0 274 65" width="100%" xmlns="http://www.w3.org/2000/svg"
+                            style="font-family:'JetBrains Mono',monospace;border:1px solid #D0DBF0;border-radius:4px;display:block;margin-bottom:4px;">
+                            <text x="6" y="12" fill="#0040C1" font-size="5" font-weight="900">64-BIT Xn REGISTER:</text>
+                            <rect x="6" y="16" width="262" height="13" rx="2" fill="#EFF6FF" stroke="#0040C1"
+                                stroke-width="1.5" />
+                            <line x1="137" y1="16" x2="137" y2="29" stroke="#0040C1" stroke-width="0.8"
+                                stroke-dasharray="2,2" />
+                            <text x="72" y="25" text-anchor="middle" fill="#1e3a8a" font-size="4.5"
+                                font-weight="700">[63 ─────── 32]</text>
+                            <text x="202" y="25" text-anchor="middle" fill="#1e3a8a" font-size="4.5"
+                                font-weight="700">[31 ─────── 0]</text>
+                            <text x="6" y="42" fill="#1A365D" font-size="5" font-weight="900">32-BIT Wn ALIAS:</text>
+                            <rect x="138" y="44" width="130" height="10" rx="2" fill="#f0fdfa" stroke="#1A365D"
+                                stroke-width="1.5" />
+                            <text x="203" y="51" text-anchor="middle" fill="#1A365D" font-size="4" font-weight="700">[31
+                                ─── 0] LOWER HALF ONLY</text>
+                            <text x="203" y="60" text-anchor="middle" fill="#0040C1" font-size="3.5" font-weight="700">*
+                                WRITES TO Wn ZERO-EXTEND Xn</text>
                         </svg>
-
                         <table class="rt">
                             <tr>
-                                <th>Registers</th>
-                                <th>Aliasing</th>
-                                <th>Primary Usage / System Purpose</th>
+                                <th>Register</th>
+                                <th>Alias</th>
+                                <th>Purpose</th>
                             </tr>
                             <tr>
-                                <td class="rn">X0 - X7</td>
-                                <td>W0 - W7</td>
-                                <td>Function Parameter passing & Results</td>
+                                <td class="rn">X0 – X7</td>
+                                <td>W0–W7</td>
+                                <td>Function arguments &amp; return values</td>
                             </tr>
                             <tr>
-                                <td class="rn">X8 - X18</td>
-                                <td>W8 - W18</td>
-                                <td>Caller-Saved (Scratch/Temporary storage)</td>
+                                <td class="rn">X8 – X18</td>
+                                <td>W8–W18</td>
+                                <td>Caller-saved; X8=XR, X16/X17=IP0/IP1</td>
                             </tr>
                             <tr>
-                                <td class="rn">X19 - X28</td>
-                                <td>W19 - W28</td>
-                                <td>Callee-Saved (Preserved across calls)</td>
+                                <td class="rn">X19 – X28</td>
+                                <td>W19–W28</td>
+                                <td>Callee-saved (preserved across calls)</td>
                             </tr>
                             <tr>
-                                <td class="rn">V0 - V31</td>
-                                <td>Q0 - B0</td>
-                                <td>SIMD / FP (128-bit Vector Banks)</td>
+                                <td class="rn">X29 / X30</td>
+                                <td>FP / LR</td>
+                                <td>Frame Pointer / Link Register</td>
                             </tr>
                             <tr>
-                                <td class="rn">Z0 - Z31</td>
-                                <td>-</td>
-                                <td>SVE2 Variable Vector Banks (up to 2048b)</td>
+                                <td class="rn">V0 – V31</td>
+                                <td>Q/D/S/H/B</td>
+                                <td>SIMD &amp; FP — 128-bit vector banks</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Z0 – Z31</td>
+                                <td>—</td>
+                                <td>SVE2 scalable vectors (128–2048b, impl-defined)</td>
                             </tr>
                             <tr>
                                 <td class="rn">ZA Tile</td>
-                                <td>-</td>
-                                <td>SME2 Accumulator Matrix (64KB SRAM)</td>
+                                <td>—</td>
+                                <td>SME2 matrix accumulator array</td>
                             </tr>
                         </table>
-
-                        <h4 style="margin-top:20px;">NZCV System Status Flags</h4>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <div
-                                style="border:1.8px solid #E2E8F0; border-radius:8px; padding:8px 12px; background:#F8FAFC;">
-                                <strong style="color:#0040C1; font-size:15px;">N</strong> <span
-                                    style="font-size:11px; font-weight:700; color:#4A5568;">NEGATIVE</span>
-                                <div style="font-size:11px; margin-top:4px;">Set if Result Bit[63] = 1</div>
-                            </div>
-                            <div
-                                style="border:1.8px solid #E2E8F0; border-radius:8px; padding:8px 12px; background:#F8FAFC;">
-                                <strong style="color:#0040C1; font-size:15px;">Z</strong> <span
-                                    style="font-size:11px; font-weight:700; color:#4A5568;">ZERO</span>
-                                <div style="font-size:11px; margin-top:4px;">Set if Result is exactly 0</div>
-                            </div>
-                            <div
-                                style="border:1.8px solid #E2E8F0; border-radius:8px; padding:8px 12px; background:#F8FAFC;">
-                                <strong style="color:#0040C1; font-size:15px;">C</strong> <span
-                                    style="font-size:11px; font-weight:700; color:#4A5568;">CARRY</span>
-                                <div style="font-size:11px; margin-top:4px;">Unsigned Overflow / Carry</div>
-                            </div>
-                            <div
-                                style="border:1.8px solid #E2E8F0; border-radius:8px; padding:8px 12px; background:#F8FAFC;">
-                                <strong style="color:#0040C1; font-size:15px;">V</strong> <span
-                                    style="font-size:11px; font-weight:700; color:#4A5568;">OVERFLOW</span>
-                                <div style="font-size:11px; margin-top:4px;">Signed Overflow / Inversion</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+
             </div>
+            <div class="col">
 
-            <!-- COLUMN 2: ISA & DATAPATH -->
-            <div>
+                <div class="sec-stripe">
+                    <span class="sec-num">①</span>
+                    <span class="sec-title">ISA Types · Formats · Addressing</span>
+                    <span class="sec-mark">4 Marks</span>
+                </div>
+
                 <div class="card">
-                    <div class="ch ch-navy">Instruction Set Architecture (ISA)</div>
+                    <div class="ch ch-navy">1.3 · ISA Instruction Types (A64)</div>
                     <div class="cb">
-                        <div style="display:flex; gap:20px;">
-                            <div style="flex:1.2;">
-                                <h4>Comprehensive A64 categories</h4>
-                                <table class="rt" style="margin-top:0;">
-                                    <tr>
-                                        <th>Category</th>
-                                        <th>Assembly Example</th>
-                                        <th>Usage / Description</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Integer</td>
-                                        <td>ADD X0, X1, X2</td>
-                                        <td>Add X1+X2, result in X0</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Logical</td>
-                                        <td>AND W3, W4, #0xFF</td>
-                                        <td>Bitwise AND with mask</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Shift</td>
-                                        <td>LSR X5, X6, #2</td>
-                                        <td>Logical Shift Right (Divide by 4)</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Move</td>
-                                        <td>MOV X7, #42</td>
-                                        <td>Load immediate value to X7</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Memory</td>
-                                        <td>LDR X8, [X9]</td>
-                                        <td>Load 64-bit from memory address</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Store</td>
-                                        <td>STR W10, [SP, #4]</td>
-                                        <td>Store 32-bit word to stack</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Branch</td>
-                                        <td>CBZ W2, error_handler</td>
-                                        <td>Compare & Branch if Zero</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">SIMD</td>
-                                        <td>FADD S0, S1, S2</td>
-                                        <td>Floating point scalar addition</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">Crypto</td>
-                                        <td>AESE V0.16B, V1.16B</td>
-                                        <td>AES Encryption round stage</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rn">System</td>
-                                        <td>MRS X0, CTR_EL0</td>
-                                        <td>Read system register to GPR</td>
-                                    </tr>
-                                </table>
+                        <table class="rt">
+                            <tr>
+                                <th>Category</th>
+                                <th>Instruction Example</th>
+                                <th>Operation</th>
+                            </tr>
+                            <tr>
+                                <td class="rn">Integer</td>
+                                <td>ADD X0, X1, X2</td>
+                                <td>X0 = X1 + X2</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Logical</td>
+                                <td>AND W3, W4, #0xFF</td>
+                                <td>Bitwise AND with immediate mask</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Shift</td>
+                                <td>LSR X5, X6, #2</td>
+                                <td>Logical right shift (÷4)</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Move</td>
+                                <td>MOV X7, #42</td>
+                                <td>Load immediate constant to register</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Load</td>
+                                <td>LDR X8, [X9]</td>
+                                <td>64-bit load from memory address</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Store</td>
+                                <td>STR W10, [SP, #4]</td>
+                                <td>32-bit store to stack + 4 offset</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">Branch</td>
+                                <td>CBZ W2, label</td>
+                                <td>Branch if W2 == 0</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">SIMD / FP</td>
+                                <td>FADD S0, S1, S2</td>
+                                <td>FP scalar addition</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">SVE2</td>
+                                <td>ADD Z0.S, Z1.S, Z2.S</td>
+                                <td>Scalable vector integer add</td>
+                            </tr>
+                            <tr>
+                                <td class="rn">System</td>
+                                <td>MRS X0, CTR_EL0</td>
+                                <td>Read system register to GPR</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
-                                <h4 style="margin-top:15px;">All Addressing Modes (A64)</h4>
-                                <div class="ac-container">
-                                    <div class="ac-chip" title="Direct Register access">Register: [Xn]</div>
-                                    <div class="ac-chip" title="Fixed Offset from Base">Immediate Offset: [Xn, #imm]
-                                    </div>
-                                    <div class="ac-chip" title="Dynamic Offset">Register Offset: [Xn, Xm]</div>
-                                    <div class="ac-chip" title="Offset with shift">Scaled Reg Offset: [Xn, Xm, LSL #3]
-                                    </div>
-                                    <div class="ac-chip" title="Update Base before Access">Pre-Indexed: [Xn, #imm]!
-                                    </div>
-                                    <div class="ac-chip" title="Update Base after Access">Post-Indexed: [Xn], #imm</div>
-                                    <div class="ac-chip" title="Offset from current PC">PC-Relative: label (ADRP)</div>
-                                </div>
-                            </div>
+                <div class="card">
+                    <div class="ch ch-blue">1.4 · Instruction Formats (Fixed 32-bit)</div>
+                    <div class="cb">
+                        <p style="font-size:6.2px;color:#334155;margin-bottom:5px;">Every AArch64 instruction is exactly
+                            <strong>32 bits wide</strong>. Field widths differ by format type:
+                        </p>
 
-                            <div style="flex:0.8;">
-                                <h4>A64 Condition Codes (PSTATE)</h4>
-                                <table class="ct">
-                                    <thead>
-                                        <tr>
-                                            <th>Code</th>
-                                            <th>Name</th>
-                                            <th>NZCV Condition</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="ctn">EQ</td>
-                                            <td>Equal</td>
-                                            <td>Z==1</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">NE</td>
-                                            <td>Not Equal</td>
-                                            <td>Z==0</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">CS/HS</td>
-                                            <td>Carry Set</td>
-                                            <td>C==1</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">CC/LO</td>
-                                            <td>Carry Clear</td>
-                                            <td>C==0</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">MI</td>
-                                            <td>Minus</td>
-                                            <td>N==1</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">PL</td>
-                                            <td>Plus</td>
-                                            <td>N==0</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">VS</td>
-                                            <td>Overflow Set</td>
-                                            <td>V==1</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">VC</td>
-                                            <td>Overflow Clr</td>
-                                            <td>V==0</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">HI</td>
-                                            <td>U-Higher</td>
-                                            <td>C==1 & Z==0</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">LS</td>
-                                            <td>U-Lower/Same</td>
-                                            <td>C==0 | Z==1</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">GE</td>
-                                            <td>S-Greater/Eq</td>
-                                            <td>N==V</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">LT</td>
-                                            <td>S-Less Than</td>
-                                            <td>N!=V</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">GT</td>
-                                            <td>S-Greater Than</td>
-                                            <td>Z==0 & N==V</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ctn">LE</td>
-                                            <td>S-Less/Equal</td>
-                                            <td>Z==1 | N!=V</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <h4>R-Type — Register–Register &nbsp;<span style="font-weight:400;color:#64748B;">(ADD, SUB,
+                                AND, ORR…)</span></h4>
+                        <div class="fmt-row">
+                            <div class="fmt-seg fs-op" style="flex:11;">Opcode<br>11b</div>
+                            <div class="fmt-seg fs-rm" style="flex:5;">Rm<br>5b</div>
+                            <div class="fmt-seg fs-sh" style="flex:6;">Shift<br>6b</div>
+                            <div class="fmt-seg fs-rn" style="flex:5;">Rn<br>5b</div>
+                            <div class="fmt-seg fs-rd" style="flex:5;">Rd<br>5b</div>
+                        </div>
+
+                        <h4>I-Type — Immediate &nbsp;<span style="font-weight:400;color:#64748B;">(ADDI, SUBI, MOVZ,
+                                MOVK…)</span></h4>
+                        <div class="fmt-row">
+                            <div class="fmt-seg fs-op" style="flex:10;">Opcode<br>10b</div>
+                            <div class="fmt-seg fs-im" style="flex:12;">Immediate<br>12b</div>
+                            <div class="fmt-seg fs-rn" style="flex:5;">Rn<br>5b</div>
+                            <div class="fmt-seg fs-rd" style="flex:5;">Rd<br>5b</div>
+                        </div>
+
+                        <h4>D-Type — Load / Store &nbsp;<span style="font-weight:400;color:#64748B;">(LDR, STR, LDUR,
+                                STUR…)</span></h4>
+                        <div class="fmt-row">
+                            <div class="fmt-seg fs-op" style="flex:11;">Opcode<br>11b</div>
+                            <div class="fmt-seg fs-of" style="flex:9;">Offset<br>9b</div>
+                            <div class="fmt-seg fs-op2" style="flex:2;">Op<br>2b</div>
+                            <div class="fmt-seg fs-rn" style="flex:5;">Rn<br>5b</div>
+                            <div class="fmt-seg fs-rd" style="flex:5;">Rt<br>5b</div>
+                        </div>
+
+                        <h4>B-Type — Branch &nbsp;<span style="font-weight:400;color:#64748B;">(B, BL, B.cond,
+                                BLR…)</span></h4>
+                        <div class="fmt-row">
+                            <div class="fmt-seg fs-op" style="flex:6;">Opcode<br>6b</div>
+                            <div class="fmt-seg fs-of" style="flex:26;">PC-Relative Offset &nbsp;·&nbsp; 26 bits</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBPART 1: MICROARCHITECTURE DATAPATH -->
-                <div class="card">
-                    <div class="ch ch-blue">Visual Microarchitecture (Datapath)</div>
+                <div class="card grow">
+                    <div class="ch ch-cyan">1.5 · Addressing Modes (AArch64)</div>
                     <div class="cb">
-                        <h4 style="margin-top:0;">Compact Visual Datapath (Cortex-X4)</h4>
-                        <div style="margin-bottom:20px;">
-                            <svg viewBox="0 0 320 250" width="100%" xmlns="http://www.w3.org/2000/svg"
-                                style="font-family:'JetBrains Mono',monospace;border:2.2px solid #D0DBF0;border-radius:10px;background:transparent;">
-                                <defs>
-                                    <marker id="arr-s" markerWidth="5" markerHeight="4" refX="4" refY="2" orient="auto">
-                                        <path d="M0,0 L5,2 L0,4 Z" fill="#4A5568" />
-                                    </marker>
-                                </defs>
-                                <rect x="20" y="20" width="80" height="35" rx="4" fill="none" stroke="#0040C1"
-                                    stroke-width="2.5" />
-                                <text x="60" y="42" text-anchor="middle" fill="#0040C1" font-size="10"
-                                    font-weight="900">FETCH</text>
-                                <line x1="100" y1="37.5" x2="120" y2="37.5" stroke="#4A5568" stroke-width="1.5"
-                                    marker-end="url(#arr-s)" />
-                                <rect x="120" y="20" width="120" height="35" rx="4" fill="none" stroke="#1A365D"
-                                    stroke-width="2.5" />
-                                <text x="180" y="42" text-anchor="middle" fill="#1A365D" font-size="10"
-                                    font-weight="900">DECODE (10-wide)</text>
-                                <line x1="240" y1="37.5" x2="260" y2="37.5" stroke="#4A5568" stroke-width="1.5"
-                                    marker-end="url(#arr-s)" />
-                                <rect x="250" y="20" width="60" height="35" rx="4" fill="none" stroke="#0040C1"
-                                    stroke-width="2.5" />
-                                <text x="280" y="42" text-anchor="middle" fill="#0040C1" font-size="9"
-                                    font-weight="900">RENAME</text>
-                                <line x1="180" y1="55" x2="180" y2="85" stroke="#4A5568" stroke-width="1.5"
-                                    marker-end="url(#arr-s)" />
-                                <rect x="40" y="85" width="240" height="40" rx="4" fill="none" stroke="#0088A8"
-                                    stroke-width="2.5" />
-                                <text x="160" y="110" text-anchor="middle" fill="#0088A8" font-size="11"
-                                    font-weight="900">ISSUE SCHEDULER (10-DISPATCH)</text>
-                                <line x1="90" y1="125" x2="90" y2="150" stroke="#4A5568" stroke-width="1.5"
-                                    marker-end="url(#arr-s)" />
-                                <rect x="20" y="150" width="130" height="45" rx="4" fill="none" stroke="#1A365D"
-                                    stroke-width="2.5" />
-                                <text x="85" y="177" text-anchor="middle" fill="#1A365D" font-size="9"
-                                    font-weight="900">INT/SIMD/FP/CRYPTO</text>
-                                <line x1="230" y1="125" x2="230" y2="150" stroke="#4A5568" stroke-width="1.5"
-                                    marker-end="url(#arr-s)" />
-                                <rect x="170" y="150" width="130" height="45" rx="4" fill="none" stroke="#0040C1"
-                                    stroke-width="2.5" />
-                                <text x="235" y="177" text-anchor="middle" fill="#0040C1" font-size="9"
-                                    font-weight="900">LS UNITS / SME</text>
-                                <line x1="160" y1="195" x2="160" y2="220" stroke="#4A5568" stroke-width="2"
-                                    marker-end="url(#arr-s)" />
-                                <rect x="20" y="220" width="280" height="30" rx="4" fill="#001A4F" stroke="#0040C1"
-                                    stroke-width="2.5" />
-                                <text x="160" y="240" text-anchor="middle" fill="#fff" font-size="12"
-                                    font-weight="900">RETIRE (10 INST / CYCLE)</text>
-                            </svg>
+                        <div class="ac-grid">
+                            <div class="ac-chip">Base Register<br>[Xn]</div>
+                            <div class="ac-chip">Immediate Offset<br>[Xn, #imm]</div>
+                            <div class="ac-chip">Register Offset<br>[Xn, Xm]</div>
+                            <div class="ac-chip">Scaled Reg Offset<br>[Xn, Xm, LSL #3]</div>
+                            <div class="ac-chip">Pre-Index<br>[Xn, #imm]!</div>
+                            <div class="ac-chip">Post-Index<br>[Xn], #imm</div>
                         </div>
-                        <ul style="list-style-type: '➤ '; font-size: 15px;">
-                            <li><strong>Execution Logic</strong>: Unified clusters for SME.</li>
-                            <li><strong>Commit Stage</strong>: Finalizes results into architectural state.</li>
-                        </ul>
+                        <div class="ac-grid" style="grid-template-columns:1fr;">
+                            <div class="ac-chip">PC-Relative &nbsp;·&nbsp; ADRP provides ±4GB page-relative addressing
+                                range</div>
+                        </div>
+                        <p style="margin-top:5px;font-size:6px;color:#475569;line-height:1.55;">
+                            <strong>Pre-index</strong> updates base <em>before</em> access. <strong>Post-index</strong>
+                            updates base <em>after</em> access.
+                            <strong>PC-relative</strong> (ADRP) is used for position-independent code and large symbol
+                            addressing.
+                        </p>
                     </div>
                 </div>
+
             </div>
+            <div class="col">
 
-            <!-- COLUMN 3: FEATURES & REFS -->
-            <div>
+                <div class="sec-stripe">
+                    <span class="sec-num">②</span>
+                    <span class="sec-title">Datapath · Pipeline · Features · References</span>
+                    <span class="sec-mark">4 Marks</span>
+                </div>
+
                 <div class="card">
-                    <div class="ch ch-dark">Top Architectural Features</div>
+                    <div class="ch ch-dark">2.1 · Datapath Diagram &amp; Flow (Cortex-X4 OOO)</div>
+                    <div class="cb">
+                        <svg viewBox="0 0 295 158" width="100%" xmlns="http://www.w3.org/2000/svg"
+                            style="font-family:'JetBrains Mono',monospace;border:1px solid #D0DBF0;border-radius:4px;display:block;">
+                            <defs>
+                                <marker id="as" markerWidth="5" markerHeight="4" refX="4" refY="2" orient="auto">
+                                    <path d="M0,0 L5,2 L0,4 Z" fill="#334155" />
+                                </marker>
+                            </defs>
+
+                            <rect x="4" y="8" width="40" height="22" rx="3" fill="#EFF6FF" stroke="#001A4F"
+                                stroke-width="2" />
+                            <text x="24" y="18" text-anchor="middle" fill="#001A4F" font-size="5.5"
+                                font-weight="900">IF</text>
+                            <text x="24" y="26" text-anchor="middle" fill="#475569" font-size="3.8">Fetch</text>
+                            <line x1="44" y1="19" x2="52" y2="19" stroke="#334155" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="52" y="8" width="40" height="22" rx="3" fill="#f0f9ff" stroke="#1A365D"
+                                stroke-width="2" />
+                            <text x="72" y="18" text-anchor="middle" fill="#1A365D" font-size="5.5"
+                                font-weight="900">ID</text>
+                            <text x="72" y="26" text-anchor="middle" fill="#475569" font-size="3.8">Decode</text>
+                            <line x1="92" y1="19" x2="100" y2="19" stroke="#334155" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="100" y="8" width="46" height="22" rx="3" fill="#f0f4ff" stroke="#0040C1"
+                                stroke-width="2" />
+                            <text x="123" y="18" text-anchor="middle" fill="#0040C1" font-size="5.5"
+                                font-weight="900">RN</text>
+                            <text x="123" y="26" text-anchor="middle" fill="#475569" font-size="3.8">Rename/ROB</text>
+                            <line x1="146" y1="19" x2="154" y2="19" stroke="#334155" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="154" y="8" width="44" height="22" rx="3" fill="#f0fdfa" stroke="#0088A8"
+                                stroke-width="2" />
+                            <text x="176" y="18" text-anchor="middle" fill="#0088A8" font-size="5.5"
+                                font-weight="900">IS</text>
+                            <text x="176" y="26" text-anchor="middle" fill="#475569" font-size="3.8">Issue Sched</text>
+                            <line x1="198" y1="19" x2="206" y2="19" stroke="#334155" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="206" y="8" width="38" height="22" rx="3" fill="#fffbeb" stroke="#b45309"
+                                stroke-width="2" />
+                            <text x="225" y="18" text-anchor="middle" fill="#b45309" font-size="5.5"
+                                font-weight="900">EX</text>
+                            <text x="225" y="26" text-anchor="middle" fill="#475569" font-size="3.8">Execute</text>
+                            <line x1="244" y1="19" x2="252" y2="19" stroke="#334155" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="252" y="8" width="38" height="22" rx="3" fill="#f0fdf4" stroke="#15803d"
+                                stroke-width="2" />
+                            <text x="271" y="18" text-anchor="middle" fill="#15803d" font-size="5.5"
+                                font-weight="900">WB</text>
+                            <text x="271" y="26" text-anchor="middle" fill="#475569" font-size="3.8">Writeback</text>
+
+                            <line x1="225" y1="30" x2="225" y2="42" stroke="#b45309" stroke-width="1"
+                                marker-end="url(#as)" />
+                            <rect x="154" y="42" width="76" height="17" rx="3" fill="#f0f4ff" stroke="#1A365D"
+                                stroke-width="1.5" />
+                            <text x="192" y="53" text-anchor="middle" fill="#1A365D" font-size="4.5"
+                                font-weight="800">INT · FP · SIMD · SVE2</text>
+                            <rect x="154" y="63" width="76" height="17" rx="3" fill="#f0fdfa" stroke="#0088A8"
+                                stroke-width="1.5" />
+                            <text x="192" y="74" text-anchor="middle" fill="#0088A8" font-size="4.5"
+                                font-weight="800">LOAD/STORE · SME2 · ZA</text>
+                            <line x1="192" y1="59" x2="192" y2="63" stroke="#334155" stroke-width="0.8" />
+
+                            <rect x="4" y="42" width="60" height="17" rx="3" fill="#f0fdf4" stroke="#166534"
+                                stroke-width="1.5" />
+                            <text x="34" y="53" text-anchor="middle" fill="#166534" font-size="4.5" font-weight="800">L1
+                                I-Cache 64KB</text>
+                            <line x1="24" y1="30" x2="24" y2="42" stroke="#166534" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="4" y="63" width="60" height="17" rx="3" fill="#f0fdf4" stroke="#166534"
+                                stroke-width="1.5" />
+                            <text x="34" y="74" text-anchor="middle" fill="#166534" font-size="4.5" font-weight="800">L1
+                                D-Cache 64KB</text>
+                            <line x1="154" y1="72" x2="64" y2="72" stroke="#166534" stroke-width="0.8"
+                                marker-end="url(#as)" />
+
+                            <rect x="70" y="42" width="56" height="17" rx="3" fill="#fdf4ff" stroke="#7e22ce"
+                                stroke-width="1.5" />
+                            <text x="98" y="53" text-anchor="middle" fill="#7e22ce" font-size="4.5"
+                                font-weight="800">Branch Predictor</text>
+                            <line x1="72" y1="30" x2="72" y2="42" stroke="#7e22ce" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="4" y="90" width="286" height="16" rx="3" fill="#001A4F" />
+                            <text x="147" y="101" text-anchor="middle" fill="#fff" font-size="5"
+                                font-weight="900">COMMIT (IN-ORDER RETIREMENT VIA ROB)</text>
+                            <line x1="271" y1="80" x2="271" y2="90" stroke="#334155" stroke-width="1"
+                                marker-end="url(#as)" />
+
+                            <rect x="4" y="115" width="118" height="15" rx="3" fill="#f8fafc" stroke="#475569"
+                                stroke-width="1.5" />
+                            <text x="63" y="125" text-anchor="middle" fill="#475569" font-size="4.2"
+                                font-weight="700">L2 Cache · 512KB–2MB (Private)</text>
+                            <rect x="130" y="115" width="160" height="15" rx="3" fill="#f8fafc" stroke="#001A4F"
+                                stroke-width="1.5" />
+                            <text x="210" y="125" text-anchor="middle" fill="#001A4F" font-size="4.2"
+                                font-weight="700">DSU-120 Shared L3 · CMN-700 Mesh</text>
+
+                            <text x="4" y="145" fill="#94a3b8" font-size="3.8">OOO: Rename eliminates WAR/WAW hazards ·
+                                ROB holds 384 in-flight instr · Retire restores program order</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="ch ch-blue">2.2 · Pipeline Stages (IF – ID – EX – MEM – WB)</div>
+                    <div class="cb">
+                        <div class="pipe-wrap">
+                            <div class="pipe-box pb1">IF<span class="pipe-sub">Instruction<br>Fetch</span></div>
+                            <div class="pipe-box pb2">ID<span class="pipe-sub">Decode &amp;<br>Reg Read</span></div>
+                            <div class="pipe-box pb3">EX<span class="pipe-sub">ALU / FPU<br>Execute</span></div>
+                            <div class="pipe-box pb4">MEM<span class="pipe-sub">L1 Cache<br>Access</span></div>
+                            <div class="pipe-box pb5">WB<span class="pipe-sub">Write<br>Back</span></div>
+                            <div class="pipe-box pb6">CMT<span class="pipe-sub">In-Order<br>Retire</span></div>
+                        </div>
+                        <p style="font-size:6px;color:#475569;margin:4px 0 3px;"><strong>OOO enhancements:</strong>
+                            Rename stage eliminates WAR/WAW hazards via register renaming → Issue Queue dispatches
+                            out-of-order → Reorder Buffer (ROB, 384 entries) enforces in-order retirement</p>
+                        <div class="sg3">
+                            <div class="st">
+                                <div class="sk">Fetch Width</div>
+                                <div class="sv">8-wide</div>
+                            </div>
+                            <div class="st">
+                                <div class="sk">ROB Entries</div>
+                                <div class="sv">384</div>
+                            </div>
+                            <div class="st">
+                                <div class="sk">Dispatch</div>
+                                <div class="sv">8-wide</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card grow">
+                    <div class="ch ch-navy">2.4 · Quality References</div>
+                    <div class="cb">
+                        <div class="refs">
+                            <span>[1]</span> Arm Ltd., "Armv9-A Architecture Reference Manual," Ed. 2024.1.<br>
+                            <span>[2]</span> Arm Developer, "Realm Management Extension (RME) Overview," Arm Whitepaper,
+                            2023.<br>
+                            <span>[3]</span> IEEE Micro, "A Profile of the Armv9.2 Architecture," vol. 43, no. 2,
+                            2023.<br>
+                            <span>[4]</span> Arm Tech, "Cortex-X4 Pipeline &amp; Microarchitecture Internals," Technical
+                            Guide, 2023.<br>
+                            <span>[5]</span> Arm Developer, "SME2 — Scalable Matrix Extension 2 Overview," 2023.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+
+                <div class="sec-stripe">
+                    <span class="sec-num">②④</span>
+                    <span class="sec-title">Key Features &amp; Critical Thinking</span>
+                    <span class="sec-mark">4 + 4 Marks</span>
+                </div>
+
+                <div class="card">
+                    <div class="ch ch-dark">2.3 · Key Processor Features</div>
                     <div class="cb">
                         <div class="fi">
                             <div class="fi-num">1</div>
-                            <div class="fi-t"><strong>Realm Mgmt (RME)</strong><span>Confidential computing isolation of
-                                    data from host OS through dynamic Realms.</span></div>
+                            <div class="fi-t"><strong>Realm Mgmt Extension (RME)</strong><span>4 hardware security
+                                    states: Root, Realm, Secure, Non-Secure. Isolates confidential workloads from host
+                                    OS/hypervisor at hardware level.</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">2</div>
-                            <div class="fi-t"><strong>SME2 Extension</strong><span>Revolutionary Matrix engine for AI
-                                    operations, supporting GEMM with 4x higher efficiency.</span></div>
+                            <div class="fi-t"><strong>SME2 — Scalable Matrix Ext.</strong><span>Introduces a 2D ZA tile
+                                    register file optimized for matrix multiplication and outer-product
+                                    operations.</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">3</div>
-                            <div class="fi-t"><strong>Memory Tagging (MTE)</strong><span>Production-level memory safety
-                                    detecting use-after-free and buffer overflows.</span></div>
+                            <div class="fi-t"><strong>SVE2 — Scalable Vector Ext. v2</strong><span>Variable-length SIMD
+                                    (128–2048 bits, implementation-defined; Cortex-X4 implements 128-bit).</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">4</div>
-                            <div class="fi-t"><strong>Pointer Auth (PAC)</strong><span>Cryptographic return address
-                                    signatures protecting software from binary exploitation.</span></div>
+                            <div class="fi-t"><strong>Memory Tagging Ext. (MTE)</strong><span>Hardware memory safety —
+                                    detects use-after-free &amp; buffer overflows at runtime with near-zero performance
+                                    overhead.</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">5</div>
-                            <div class="fi-t"><strong>Target Identifiers (BTI)</strong><span>Hardware-enforced indirect
-                                    branch targets preventing Jump-Oriented Programming (JOP).</span></div>
+                            <div class="fi-t"><strong>Pointer Authentication (PAC)</strong><span>Cryptographic
+                                    signatures on return addresses &amp; pointers. Prevents ROP &amp; JOP binary
+                                    exploitation attacks.</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">6</div>
-                            <div class="fi-t"><strong>Trans. Memory (TME)</strong><span>Architectural support for Atomic
-                                    memory transactions, speeding up lock-intensive apps.</span></div>
+                            <div class="fi-t"><strong>Branch Target ID (BTI)</strong><span>Hardware-enforced valid
+                                    indirect branch targets — prevents Jump-Oriented Programming attacks in production
+                                    code.</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">7</div>
-                            <div class="fi-t"><strong>Branch Records (BRBE)</strong><span>Highly granular Hardware
-                                    profiling capturing recent program history for optimization.</span></div>
+                            <div class="fi-t"><strong>Transactional Memory (TME)</strong><span>Hardware atomic
+                                    transactions — accelerates lock-intensive concurrent &amp; multi-threaded
+                                    workloads.</span></div>
                         </div>
                         <div class="fi">
                             <div class="fi-num">8</div>
-                            <div class="fi-t"><strong>SVE2 Vectorization</strong><span>Scalable Vector Extension v2
-                                    allowing SIMD code to run on any HW vector width.</span></div>
-                        </div>
-                        <div class="fi">
-                            <div class="fi-num">9</div>
-                            <div class="fi-t"><strong>Privileged Access (PAN)</strong><span>Protection bit preventing OS
-                                    kernels from accidentally accessing user-mode memory.</span></div>
-                        </div>
-
-                        <div class="app-bar">
-                            <div class="app-title">Key Target Applications</div>
-                            <div class="app-chips">
-                                <span class="app-chip">Cloud AI</span>
-                                <span class="app-chip">HPC Supercomputing</span>
-                                <span class="app-chip">Smart Mobility</span>
-                                <span class="app-chip">Enterprise Security</span>
-                                <span class="app-chip">Mobile Gaming</span>
-                            </div>
+                            <div class="fi-t"><strong>Branch Record Buffer (BRBE)</strong><span>Captures branch history
+                                    in hardware for precise profiling, performance analysis &amp; compiler
+                                    optimization.</span></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <div class="ch ch-navy">Technical References</div>
+                    <div class="ch ch-grn">④ · Comparison &amp; Critical Thinking — ARMv9.2 vs ARMv8.x</div>
                     <div class="cb">
-                        <div style="font-family:'JetBrains Mono'; font-size:11.5px; line-height:1.8; color:#4A5568;">
-                            [1] Arm Ltd., "Armv9-A Architecture Reference Manual," Ed. 2024.1.<br>
-                            [2] Arm developer, "Realm Management Extension (RME) Overview," Arm Whitepaper.<br>
-                            [3] Wikipedia, "AArch64 - Computer Organization and Instruction Set Architecture."<br>
-                            [4] IEEE Micro, "A Profile of the Armv9.2 Architecture," vol.43, Issue 2, 2023.<br>
-                            [5] Arm Tech, "Cortex-X4 Pipeline & Microarchitecture Internals," Technical Guide.
-                        </div>
+                        <table class="cmp">
+                            <tr>
+                                <th>Feature</th>
+                                <th>ARMv8.x</th>
+                                <th>ARMv9.2-A</th>
+                                <th>Advantage</th>
+                            </tr>
+                            <tr>
+                                <td class="cprop">Security Model</td>
+                                <td class="cv8">2 states (Sec/NS)</td>
+                                <td class="cv9">4 states via RME</td>
+                                <td class="cwin">✔ Confidential Compute</td>
+                            </tr>
+                            <tr>
+                                <td class="cprop">SIMD / Vector</td>
+                                <td class="cv8">NEON · fixed 128-bit</td>
+                                <td class="cv9">SVE2 · 128–2048b</td>
+                                <td class="cwin">✔ HPC / AI scalability</td>
+                            </tr>
+                            <tr>
+                                <td class="cprop">Matrix / AI</td>
+                                <td class="cv8">No matrix engine</td>
+                                <td class="cv9">SME2 · ZA GEMM</td>
+                                <td class="cwin">✔ On-device AI/ML</td>
+                            </tr>
+                            <tr>
+                                <td class="cprop">Memory Safety</td>
+                                <td class="cv8">Software only</td>
+                                <td class="cv9">MTE hardware tags</td>
+                                <td class="cwin">✔ Near-zero overhead</td>
+                            </tr>
+                            <tr>
+                                <td class="cprop">Anti-Exploit</td>
+                                <td class="cv8">PAC (v8.3+) partial</td>
+                                <td class="cv9">PAC+BTI+MTE+RME</td>
+                                <td class="cwin">✔ Multi-layer defence</td>
+                            </tr>
+                            <tr>
+                                <td class="cprop">Concurrency</td>
+                                <td class="cv8">No hardware TM</td>
+                                <td class="cv9">TME atomic txns</td>
+                                <td class="cwin">✔ Faster lock-free code</td>
+                            </tr>
+                            <tr>
+                                <td class="cprop">ISA Encoding</td>
+                                <td class="cv8">32-bit A64 only</td>
+                                <td class="cv9">+SVE2/SME2 enc.</td>
+                                <td class="cwin">✔ Broader compute</td>
+                            </tr>
+                        </table>
+                        <p
+                            style="margin-top:5px;font-size:5.8px;color:#475569;font-style:italic;line-height:1.5;padding:4px 6px;background:#f8fafc;border-radius:3px;border-left:2px solid #0040C1;">
+                            <strong>Critical insight:</strong> ARMv9.2 is not an incremental update — it simultaneously
+                            redefines security (RME creates a new trust boundary), AI compute (SME2 adds native matrix
+                            hardware), and SIMD scalability (SVE2 eliminates width fragmentation). This makes a single
+                            ARMv9.2-A binary viable across mobile, cloud, HPC, and automotive domains — something ARMv8
+                            could not achieve.
+                        </p>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="ch ch-blue">10-Stage Pipeline Flow</div>
-                    <div class="cb">
-                        <h4 style="margin-top:0;">Refined Pipeline Stages</h4>
-                        <div style="margin-bottom:20px;">
-                            <svg viewBox="0 0 320 250" width="100%" xmlns="http://www.w3.org/2000/svg"
-                                style="font-family:'Barlow Condensed',sans-serif;border:2.2px solid #D0DBF0;border-radius:10px;background:transparent;">
-                                <g transform="translate(10, 35)">
-                                    <rect x="0" y="0" width="55" height="50" rx="5" fill="none" stroke="#001A4F"
-                                        stroke-width="2.5" />
-                                    <text x="27.5" y="25" text-anchor="middle" font-size="12" font-weight="900"
-                                        fill="#001A4F">FETCH</text>
-                                    <text x="27.5" y="40" text-anchor="middle" font-size="10"
-                                        fill="#4A5568">S1-S3</text>
-                                    <line x1="55" y1="25" x2="65" y2="25" stroke="#CBD5E0" stroke-width="1.5"
-                                        marker-end="url(#arr-s)" />
-                                    <rect x="65" y="0" width="55" height="50" rx="5" fill="none" stroke="#1A365D"
-                                        stroke-width="2.5" />
-                                    <text x="92.5" y="25" text-anchor="middle" font-size="12" font-weight="900"
-                                        fill="#1A365D">DECODE</text>
-                                    <text x="92.5" y="40" text-anchor="middle" font-size="10"
-                                        fill="#4A5568">S4-S6</text>
-                                    <line x1="120" y1="25" x2="130" y2="25" stroke="#CBD5E0" stroke-width="1.5"
-                                        marker-end="url(#arr-s)" />
-                                    <rect x="130" y="0" width="55" height="50" rx="5" fill="none" stroke="#0040C1"
-                                        stroke-width="2.5" />
-                                    <text x="157.5" y="25" text-anchor="middle" font-size="12" font-weight="900"
-                                        fill="#0040C1">RENAME</text>
-                                    <text x="157.5" y="40" text-anchor="middle" font-size="10" fill="#4A5568">S7</text>
-                                    <line x1="185" y1="25" x2="195" y2="25" stroke="#CBD5E0" stroke-width="1.5"
-                                        marker-end="url(#arr-s)" />
-                                    <rect x="195" y="0" width="55" height="50" rx="5" fill="none" stroke="#0088A8"
-                                        stroke-width="2.5" />
-                                    <text x="222.5" y="25" text-anchor="middle" font-size="12" font-weight="900"
-                                        fill="#0088A8">ISSUE</text>
-                                    <text x="222.5" y="40" text-anchor="middle" font-size="10"
-                                        fill="#4A5568">S8-S9</text>
-                                    <line x1="250" y1="25" x2="260" y2="25" stroke="#CBD5E0" stroke-width="1.5"
-                                        marker-end="url(#arr-s)" />
-                                    <rect x="260" y="0" width="45" height="50" rx="5" fill="none" stroke="#00B4DB"
-                                        stroke-width="2.5" />
-                                    <text x="282.5" y="25" text-anchor="middle" font-size="12" font-weight="900"
-                                        fill="#00B4DB">EXEC</text>
-                                    <text x="282.5" y="40" text-anchor="middle" font-size="10"
-                                        fill="#4A5568">S10+</text>
-                                </g>
-                                <g transform="translate(10, 120)">
-                                    <rect x="0" y="0" width="295" height="110" rx="10" fill="#F8FAFC" stroke="#D0DBF0"
-                                        stroke-width="2" />
-                                    <text x="15" y="30" font-weight="800" font-size="15" fill="#001A4F">PIPELINE
-                                        METRICS:</text>
-                                    <text x="15" y="55" font-size="14" fill="#2D3748">➤ Fetch: 32B/cycle</text>
-                                    <text x="15" y="75" font-size="14" fill="#2D3748">➤ ROB Capacity: 384 Entries</text>
-                                    <text x="15" y="95" font-size="14" fill="#2D3748">➤ Dispatch: 10-wide</text>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COLUMN 4: CORE FAMILY & SECURITY -->
-            <div>
-                <div class="card">
-                    <div class="ch ch-cyan">Cortex Core Family (TCS23)</div>
-                    <div class="cb">
-                        <div class="hl">The <strong>Total Compute Solutions 2023</strong> platform delivers peak 64-bit
-                            performance across all tiers.</div>
-
-                        <h4>Cortex-X4 (Performance)</h4>
-                        <ul style="list-style-type: '➤ '; margin-top:0;">
-                            <li><strong>Peak Performance</strong>: 15% ALUs boost over X3.</li>
-                            <li><strong>Innovation</strong>: Optimized branch prediction.</li>
-                            <li><strong>Configuration</strong>: Up to 2MB private L2 cache.</li>
-                        </ul>
-
-                        <h4>Cortex-A720 (Efficiency)</h4>
-                        <ul style="list-style-type: '➤ '; margin-top:0;">
-                            <li><strong>Sustainable Perf</strong>: 20% more power efficient.</li>
-                            <li><strong>Target</strong>: Heavy multitasking & AAA gaming.</li>
-                        </ul>
-
-                        <h4>Cortex-A520 (Efficiency)</h4>
-                        <ul style="list-style-type: '➤ '; margin-top:0;">
-                            <li><strong>Pure 64-bit</strong>: Minimalist 64-bit only design.</li>
-                            <li><strong>Design</strong>: Focus on background task efficiency.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="ch ch-navy">Confidential Compute states</div>
-                    <div class="cb">
-                        <svg viewBox="0 0 300 150" width="100%" xmlns="http://www.w3.org/2000/svg"
-                            style="font-family:'JetBrains Mono',monospace;border:2.2px solid #D0DBF0;border-radius:10px;background:transparent;">
-                            <!-- Security States -->
-                            <rect x="20" y="20" width="120" height="40" rx="5" fill="#f0f7ff" stroke="#0040C1"
-                                stroke-width="2" />
-                            <text x="80" y="45" text-anchor="middle" fill="#0040C1" font-size="9"
-                                font-weight="900">REALM STATE</text>
-
-                            <rect x="160" y="20" width="120" height="40" rx="5" fill="#fff5f5" stroke="#e53e3e"
-                                stroke-width="2" />
-                            <text x="220" y="45" text-anchor="middle" fill="#e53e3e" font-size="9"
-                                font-weight="900">SECURE STATE</text>
-
-                            <rect x="20" y="80" width="120" height="40" rx="5" fill="#f8fafc" stroke="#475569"
-                                stroke-width="2" />
-                            <text x="80" y="105" text-anchor="middle" fill="#475569" font-size="9"
-                                font-weight="900">NON-SECURE</text>
-
-                            <rect x="160" y="80" width="120" height="40" rx="5" fill="#faf5ff" stroke="#7e3af2"
-                                stroke-width="2" />
-                            <text x="220" y="105" text-anchor="middle" fill="#7e3af2" font-size="9"
-                                font-weight="900">ROOT STATE</text>
-
-                            <line x1="140" y1="40" x2="160" y2="40" stroke="#CBD5E0" stroke-width="1" />
-                            <line x1="80" y1="60" x2="80" y2="80" stroke="#CBD5E0" stroke-width="1" />
-                        </svg>
-                        <ul style="list-style-type: '➤ '; margin-top:15px; font-size:13px;">
-                            <li><strong>Root</strong>: Most privileged (Monitor/EL3).</li>
-                            <li><strong>Realm</strong>: Dynamic isolation for payloads.</li>
-                            <li><strong>Isolation</strong>: HW-enforced memory encryption.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="ch ch-dark">Reliability & Debug</div>
-                    <div class="cb">
-                        <div class="hl">Advanced hardware extensions for software resilience and debugging.</div>
-                        <ul style="list-style-type: '➤ '; font-size:13.5px;">
-                            <li><strong>MTE</strong>: Real-time memory safety.</li>
-                            <li><strong>ETE v1.2</strong>: Deep execution visibility.</li>
-                            <li><strong>TME</strong>: Hardware Atomic transactions.</li>
-                            <li><strong>PMU</strong>: Performance Monitoring Unit v3.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- TEAM SECTION -->
-                <div class="team-section">
-                    <div class="team-hdr-yellow">B.Tech CSE 2024–28 Batch : Semester 4</div>
-                    <div class="team-hdr-white">23CSE213 Computer Organization and Architecture</div>
+                <div class="team-card">
+                    <div class="team-hdr-y">B.Tech CSE 2024–28 Batch · Semester 4</div>
+                    <div class="team-hdr-w">23CSE213 — Computer Organization and Architecture</div>
                     <div class="team-no">Team No :</div>
                     <table class="team-tbl">
                         <thead>
                             <tr>
-                                <th style="width: 30%;">Roll No</th>
-                                <th>Name</th>
+                                <th style="width:48%;">Roll Number</th>
+                                <th>Student Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>cb.sc.u4cse24240</td>
-                                <td>potarluru bhavith madhu</td>
+                                <td>CB.SC.U4CSE24240</td>
+                                <td>P SANJAY</td>
                             </tr>
                             <tr>
-                                <td>CB.SC.U4CSE24001</td>
-                                <td>TEAM MEMBER 2</td>
+                                <td>CB.SC.U4CSE24241</td>
+                                <td>P BHAVITH MADHU</td>
                             </tr>
                             <tr>
-                                <td>CB.SC.U4CSE24002</td>
-                                <td>TEAM MEMBER 3</td>
+                                <td>CB.SC.U4CSE24243</td>
+                                <td>RAGHAV VS</td>
                             </tr>
                             <tr>
-                                <td>CB.SC.U4CSE24003</td>
-                                <td>TEAM MEMBER 4</td>
+                                <td>CB.SC.U4CSE24244</td>
+                                <td>R VIKRANTH</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
-
-        </div><!-- end body -->
-
-
-        <!-- FOOTER -->
+        </div>
         <div class="footer">
-            <p>ARMv9.2-A ARCHITECTURE SERIES · <span>COA EVALUATION PROJECT</span></p>
-            <p>B.TECH CSE SEMESTER 4 · <span>CAPSTONE EVALUATED</span></p>
+            <p>ARMv9.2-A ARCHITECTURE · <span>COA CAPSTONE POSTER</span></p>
+            <p><span>①</span> Architecture · Registers · ISA (Types · Formats · Addressing) &nbsp;|&nbsp; <span>②</span>
+                Datapath · Pipeline · Features · References &nbsp;|&nbsp; <span>④</span> Comparison &amp; Critical
+                Thinking</p>
+            <p>B.TECH CSE 2024–28 · <span>SEMESTER 4 · 23CSE213</span></p>
         </div>
 
     </div>
