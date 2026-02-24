@@ -24,8 +24,8 @@ function Header() {
       </div>
       <div className="hdr-specs">
         <div className="sp"><strong>Arch:</strong> AArch64 · A64 ISA · Exception Levels EL0–EL3</div>
-        <div className="sp"><strong>Security:</strong> Root · Realm · Secure · Non-Secure (RME)</div>
-        <div className="sp"><strong>Memory:</strong> VMSAv8-64 · Stage 1 & 2 Translation · 52-bit PA</div>
+        <div className="sp"><strong>Security:</strong> Non-Secure · Secure · Realm · Root (RME)</div>
+        <div className="sp"><strong>Memory:</strong> VMSAv8-64 · Stage 1 & Stage 2 Translation · Up to 52-bit PA</div>
         <div className="sp"><strong>Features:</strong> SVE2 · SME · MTE · PAC · BTI · TME · BRBE</div>
       </div>
       <div className="hdr-logo">
@@ -38,10 +38,10 @@ function Header() {
 function Subbar() {
   return (
     <div className="subbar">
-      <div className="sb-item"><span className="sbd" style={{ background: '#00B4DB' }}></span><strong>ISA:</strong> 64-bit Fixed-width · AArch64 execution state</div>
-      <div className="sb-item"><span className="sbd" style={{ background: '#4ade80' }}></span><strong>Registers:</strong> 31× 64-bit GPR + SP + PC + V/Z/ZA</div>
-      <div className="sb-item"><span className="sbd" style={{ background: '#f59e0b' }}></span><strong>Translation:</strong> MMU with Stage 1 & Stage 2 Support</div>
-      <div className="sb-item"><span className="sbd" style={{ background: '#a78bfa' }}></span><strong>Security:</strong> 4 States — Root · Realm · Secure · Non-Secure</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#00B4DB' }}></span><strong>ISA:</strong> 64-bit fixed-width · AArch64 execution state</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#4ade80' }}></span><strong>Registers:</strong> 31× 64-bit GPRs + SP + PC + V/Z/ZA</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#f59e0b' }}></span><strong>Translation:</strong> MMU with Stage-1 & Stage-2 support</div>
+      <div className="sb-item"><span className="sbd" style={{ background: '#a78bfa' }}></span><strong>Security:</strong> Non-Secure · Secure · Realm · Root (RME)</div>
       <div className="sb-item"><span className="sbd" style={{ background: '#fb923c' }}></span><strong>Debug:</strong> PMU · Debug & Trace Architecture (CoreSight)</div>
     </div>
   )
@@ -155,13 +155,13 @@ function Column2() {
           <div className="ac-chip" style={{ padding: '2px' }}>Reg Offset<br />[Xn, Xm]</div>
           <div className="ac-chip" style={{ padding: '2px' }}>Pre-Index<br />[Xn, #imm]!</div>
           <div className="ac-chip" style={{ padding: '2px' }}>Post-Index<br />[Xn], #imm</div>
-          <div className="ac-chip" style={{ padding: '2px' }}>Reg Extend<br />[Xn, Wm, SXTW]</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>Reg Extend<br />[Xn, Wm, SXTW / UXTW]</div>
         </div>
         <div className="ac-grid" style={{ gridTemplateColumns: '1fr 1.2fr', gap: '2px', marginTop: '2px' }}>
-          <div className="ac-chip" style={{ padding: '2px' }}>PC-Relative Load<br />LDR Xt, label</div>
+          <div className="ac-chip" style={{ padding: '2px' }}>PC-Relative Load<br />LDR Xt, label (via ADRP + ADD)</div>
           <div className="ac-chip" style={{ padding: '2px' }}>Pair Addressing<br />LDP / STP [Xn, #imm]</div>
         </div>
-        <br />
+        {/* <br /> */}
         <p style={{ marginTop: '4px', fontSize: '12px', color: '#475569', lineHeight: 1.4 }}>
           <strong>A64 Logic:</strong> ADRP provides ±4GB range. <strong>Pre/Post-index</strong> simplify pointer arithmetic. <strong>Register Extend</strong> allows offset extension.
         </p>
@@ -182,18 +182,26 @@ function RightSide() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', flex: 1 }}>
         <div className="col">
           <Card title="Key Processor Features" headerClass="ch-dark">
-
             {[
-              ["Realm Mgmt Extension (RME)", "Architectural isolation: Root, Realm, Secure, Non-Secure states. Protects data by moving trust from OS/Hypervisor to hardware."],
-              ["SME — Scalable Matrix Ext.", "Introduces 2D ZA tile register file and outer-product instructions for architectural matrix acceleration."],
-              ["SVE2 — Scalable Vector Ext. v2", "Variable-length SIMD (128–2048 bits) with per-lane predication and hardware-managed vector length agnostic (VLA) coding."],
-              ["Memory Tagging Ext. (MTE)", "Hardware-assisted memory safety: tags on pointers and memory granules to detect use-after-free and buffer overflows."],
-              ["Pointer Authentication (PAC)", "Cryptographic signatures (PACs) on pointers to detect and prevent unauthorized pointer modifications (ROP/JOP mitigation)."],
-              ["Branch Target ID (BTI)", "Enforces that indirect branches must target specifically marked instructions, limiting gadget-based binary exploitation."],
-              ["Guarded Control Stack (GCS)", "Hardware-enforced stack for return addresses to mitigate ROP-style attacks (Return-Oriented Programming)."]
+              ["Realm Mgmt Extension (RME)", "Architectural isolation: Root, Realm, Secure, Non-Secure states for hardware-based trust.Enables dynamic, attestable Trusted Execution Environments (Arm CCA)."],
+              ["SME — Scalable Matrix Ext.", "Introduces 2D ZA tile register file and outer-product instructions for matrix acceleration. Optimized for high-performance AI, ML, and DSP workloads via Streaming SVE mode."],
+              ["SVE2 — Scalable Vector Ext. v2", "Vector-length agnostic (VLA) SIMD (128–2048 bits) with per-lane predication and multi-length support. Enhances ARMv8-A SVE with new instructions for DSP, cryptography, and bit manipulation."],
+              ["Memory Tagging Ext. (MTE)", "Hardware-assisted memory safety: detects use-after-free and buffer overflows via pointer/memory tags."],
+              ["Pointer Authentication (PAC)", "Cryptographic signatures on pointers to mitigate Return/Jump-Oriented Programming (ROP/JOP) attacks."],
+              ["Branch Target ID (BTI)", "Enforces that indirect branches target marked instructions to limit gadget-based exploitation."],
+              ["Guarded Control Stack (GCS)", "Hardware-enforced stack for return addresses to prevent ROP-style control-flow subversion."],
+              ["BRBE — Branch Record Buffer", "Captures recent control path history in hardware for optimized debugging and profiling."],
+              ["SPE — Stat. Profiling Ext.", "Hardware-assisted statistical sampling of instructions, memory latency, and branch behavior."],
+              ["Transactional Memory (TME)", "Architectural support for Lock Elision and Transactional execution to enhance multi-core concurrency."],
+              ["Enhanced PMU (PMU+)", "Advanced Performance Monitor Units with support for hundreds of events and cycle-accurate tracking."],
+              ["Data Independent Timing (DIT)", "Ensures instruction execution time is independent of data values to mitigate timing side-channels. Crucial for constant-time cryptographic algorithms to prevent information leakage through execution-time variance."],
+              // ["Side-Channel Mitigations", "Hardened speculative execution guards (CSV2, CSV3) to prevent Spectre-class vulnerabilities."]
             ].map(([title, desc], idx) => (
-              <div className="fi" key={idx}>
-                <div className="fi-t"><strong>{title}</strong><span>{desc}</span></div>
+              <div className="fi" key={idx} style={{ marginBottom: '3px' }}>
+                <div className="fi-t" style={{ fontSize: '9px', lineHeight: '1.2' }}>
+                  <strong>{title}</strong>
+                  <span style={{ whiteSpace: 'pre-line' }}>{desc}</span>
+                </div>
               </div>
             ))}
           </Card>
@@ -202,15 +210,70 @@ function RightSide() {
         <div className="col">
           <Card title="Standard Architectural Pipeline Stages" headerClass="ch-blue">
             <div className="pipe-wrap" style={{ margin: '3px 0' }}>
-              <div className="pipe-box pb1">IF<span className="pipe-sub">Instruction<br />Fetch</span></div>
-              <div className="pipe-box pb2">ID<span className="pipe-sub">Instruction<br />Decode</span></div>
-              <div className="pipe-box pb3">EX<span className="pipe-sub">ALU / FPU / SIMD<br />Execute</span></div>
-              <div className="pipe-box pb4">MEM<span className="pipe-sub">Memory<br />Access</span></div>
-              <div className="pipe-box pb5">WB<span className="pipe-sub">Register<br />Writeback</span></div>
-              <div className="pipe-box pb6">CMT<span className="pipe-sub">Architectural<br />Commit</span></div>
+              <div className="pipe-box pb1" style={{ position: 'relative' }}>
+                IF<span className="pipe-sub">Instruction Fetch</span>
+                <div style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', marginTop: '2px', lineHeight: 1.1 }}>PC update, branch prediction</div>
+              </div>
+              <div className="pipe-box pb2">
+                ID<span className="pipe-sub">Instruction Decode</span>
+                <div style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', marginTop: '2px', lineHeight: 1.1 }}>Register read, imm. extract</div>
+              </div>
+              <div className="pipe-box pb3">
+                EX<span className="pipe-sub">Execute</span>
+                <div style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', marginTop: '2px', lineHeight: 1.1 }}>ALU ops, branch eval, addr calc</div>
+              </div>
+              <div className="pipe-box pb4">
+                MEM<span className="pipe-sub">Memory Access</span>
+                <div style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', marginTop: '2px', lineHeight: 1.1 }}>Load/store, memory ordering</div>
+              </div>
+              <div className="pipe-box pb5">
+                WB<span className="pipe-sub">Write-back</span>
+                <div style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', marginTop: '2px', lineHeight: 1.1 }}>Register write-back</div>
+              </div>
+              <div className="pipe-box pb6">
+                CMT<span className="pipe-sub">Commit</span>
+                <div style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', marginTop: '2px', lineHeight: 1.1 }}>Architectural state (in-order)</div>
+              </div>
             </div>
-            <p style={{ fontSize: '11px', color: '#475569', margin: '2px 0 2px' }}><strong>Logical Flow:</strong> The ARMv9.2-A architecture defines a sequential machine model. Implementation artifacts like Out-of-Order execution and Renaming are supported but remain transparent to the programmer at the architectural level.</p>
-            <div className="sg3">
+
+            <div style={{ marginTop: '8px', padding: '6px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '4px' }}>
+              <div style={{ fontSize: '9px', fontWeight: '800', color: '#1e293b', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #cbd5e1', paddingBottom: '2px' }}>
+                Pipeline Characteristics
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', fontSize: '8.5px', color: '#475569' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }}></div>
+                  In-order architectural commit
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }}></div>
+                  Out-of-order execution (impl)
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }}></div>
+                  Register renaming (ISA-transparent)
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }}></div>
+                  Precise exceptions
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }}></div>
+                  Speculative execution (impl)
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '8px', padding: '6px', borderLeft: '3px solid #3b82f6', background: '#eff6ff', borderRadius: '2px' }}>
+              <div style={{ fontSize: '9px', fontWeight: '800', color: '#1e40af', marginBottom: '2px' }}>ARMv9.2 Pipeline Notes</div>
+              <ul style={{ margin: 0, paddingLeft: '12px', fontSize: '8.5px', color: '#1e40af', lineHeight: 1.4 }}>
+                <li>SVE2 / SME execute primarily in EX stage</li>
+                <li>RME affects control logic & state commit</li>
+                <li>MTE checks integrated with MEM access stage</li>
+              </ul>
+            </div>
+
+            <div className="sg3" style={{ marginTop: '8px' }}>
               <StatBox label="Vector Support" value="SVE2 / SME" />
               <StatBox label="Memory Safety" value="MTE Tags" />
               <StatBox label="Security" value="Root / Realm" />
@@ -220,15 +283,14 @@ function RightSide() {
           <Card title="References" headerClass="ch-navy" grow>
             <div className="refs" style={{ fontSize: '10px', lineHeight: 1.7 }}>
               Arm Ltd., "Armv9-A Architecture Reference Manual (ARM)," Ed. 2024.1.<br />
+              Arm Ltd., "ARMv9.2-A Instruction Set Architecture Supplement (A64)," 2024.<br />
               <a href="https://developer.arm.com/documentation/ddi0601" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation/ddi0601</a><br />
               Arm Ltd., "Arm Architecture Reference Manual supplement: RME," 2023.<br />
               <a href="https://developer.arm.com/documentation/ddi0615" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation/ddi0615</a><br />
               IEEE Micro, "A Profile of the Armv9.2 Architecture," vol. 43, no. 2, 2023.<br />
               <a href="https://ieeexplore.ieee.org" style={{ color: '#0040C1', textDecoration: 'none' }}>ieeexplore.ieee.org</a><br />
               Arm Ltd., "Armv9-A Performance Monitoring Unit (PMU) Guide," 2023.<br />
-              {/* <a href="https://developer.arm.com/documentation" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation</a><br />
-              Arm Developer, "Learn the Architecture: SME & SVE2 Overview," 2023.<br />
-              <a href="https://developer.arm.com/architectures/instruction-sets" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/architectures/instruction-sets</a> */}
+              <a href="https://developer.arm.com/documentation/102374" style={{ color: '#0040C1', textDecoration: 'none' }}>developer.arm.com/documentation/102374</a><br />
             </div>
           </Card>
           <TeamTable />
@@ -366,160 +428,18 @@ function CoaRegisters() {
   )
 }
 
+import datapathImg from './assets/datapath_extracted.png';
+
 function CoaDatapath() {
   return (
-    <div style={{ background: '#fff', padding: '25px', borderRadius: '10px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
-      <svg viewBox="0 0 960 660" width="100%" xmlns="http://www.w3.org/2000/svg" style={{ fontFamily: "'Inter', sans-serif" }}>
-        <defs>
-          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" fill="#1e293b" />
-          </marker>
-          <marker id="control-arrow" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
-            <polygon points="0 0, 8 2.5, 0 5" fill="#ef4444" />
-          </marker>
-        </defs>
-
-        {/* --- TIERED TITLE --- */}
-        <text x="480" y="30" textAnchor="middle" fill="#0f172a" fontSize="22" fontWeight="900">AArch64 Instruction Datapath Cleanup</text>
-        <text x="480" y="55" textAnchor="middle" fill="#64748b" fontSize="11" fontStyleStyle="italic">“Refined Textbook Model for Single-Cycle Architectural Study”</text>
-
-        {/* --- HARDWARE TIER: UPPER (FETCH & BRANCH) --- */}
-
-        {/* Next PC Mux Cluster */}
-        <path d="M40 270 L70 278 L70 342 L40 350 Z" fill="#fff" stroke="#64748b" strokeWidth="2" />
-        <text x="55" y="265" textAnchor="middle" fill="none" stroke="#fff" strokeWidth="4" fontSize="10" fontWeight="900">MUX</text>
-        <text x="55" y="265" textAnchor="middle" fill="#475569" fontSize="10" fontWeight="900">MUX</text>
-
-        {/* PC Register */}
-        <rect x="100" y="280" width="55" height="100" fill="#eff6ff" stroke="#2563eb" strokeWidth="2.5" />
-        <text x="127.5" y="335" textAnchor="middle" fill="#1e40af" fontSize="13" fontWeight="950">PC</text>
-
-        {/* PC+4 Incrementer */}
-        <path d="M170 140 L205 105 L205 175 Z" fill="#f8fafc" stroke="#64748b" strokeWidth="2" transform="rotate(-90 187.5 140)" />
-        <text x="187.5" y="125" textAnchor="middle" fill="#475569" fontSize="11" fontWeight="950">Add</text>
-        <text x="160" y="155" fill="#475569" fontSize="12" fontWeight="800">4</text>
-
-        {/* Branch Target Adder */}
-        <path d="M480 80 L515 45 L515 115 Z" fill="#fcfcfc" stroke="#64748b" strokeWidth="2" transform="rotate(-90 497.5 80)" />
-        <text x="497.5" y="65" textAnchor="middle" fill="#475569" fontSize="11" fontWeight="950">Add</text>
-
-        {/* Branch Logic Cluster (Isolated Far Right) */}
-        <path d="M840 130 L840 170 A 20 20 0 0 0 880 150 A 20 20 0 0 0 840 130" fill="#f8fafc" stroke="#1e293b" strokeWidth="2" />
-        <text x="858" y="120" textAnchor="middle" fill="#1e293b" fontSize="11" fontWeight="1000">AND</text>
-
-        {/* --- HARDWARE TIER: MIDDLE (EXECUTION) --- */}
-
-        {/* Instruction Memory */}
-        <rect x="220" y="270" width="110" height="120" fill="#eff6ff" stroke="#2563eb" strokeWidth="2.5" />
-        <text x="275" y="325" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="950">Instruction</text>
-        <text x="275" y="343" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="950">Memory</text>
-
-        {/* Register File */}
-        <rect x="500" y="250" width="130" height="160" fill="#faf5ff" stroke="#7e22ce" strokeWidth="3" />
-        <text x="565" y="275" textAnchor="middle" fill="#6b21a8" fontSize="13" fontWeight="1000">Register File</text>
-
-        {/* ALU (Primary Focus) */}
-        <path d="M750 270 L750 325 L770 340 L750 355 L750 410 L825 365 L825 315 Z" fill="#f8fafc" stroke="#1e293b" strokeWidth="3" />
-        <text x="787" y="345" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="1000">ALU</text>
-
-        {/* Data Memory */}
-        <rect x="855" y="270" width="100" height="120" fill="#eff6ff" stroke="#2563eb" strokeWidth="2.5" />
-        <text x="905" y="325" textAnchor="middle" fill="#1e40af" fontSize="12" fontWeight="950">Data Memory</text>
-
-        {/* --- HARDWARE TIER: LOWER (DECODE & CONTROL) --- */}
-
-        {/* Control Unit (Hub Positioning) */}
-        <path d="M370 160 L430 100 L490 160 L430 220 Z" fill="#fef2f2" stroke="#ef4444" strokeWidth="3" />
-        <text x="430" y="165" textAnchor="middle" fill="#991b1b" fontSize="12" fontWeight="1000">Control Unit</text>
-
-        {/* Immediate Decode */}
-        <rect x="360" y="470" width="135" height="55" rx="15" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2.5" />
-        <text x="427.5" y="495" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="1000">Immediate Decode /</text>
-        <text x="427.5" y="512" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="1000">Sign Extension</text>
-
-        {/* ALU Control */}
-        <path d="M650 520 L700 470 L750 520 L700 570 Z" fill="#fefce8" stroke="#ca8a04" strokeWidth="2.5" />
-        <text x="700" y="515" textAnchor="middle" fill="#854d0e" fontSize="11" fontWeight="1000">ALU</text>
-        <text x="700" y="532" textAnchor="middle" fill="#854d0e" fontSize="11" fontWeight="1000">Control</text>
-
-        {/* ALU/WB Muxes */}
-        <path d="M685 330 L710 335 L710 395 L685 400 Z" fill="#fff" stroke="#64748b" strokeWidth="2" />
-        <text x="697" y="325" textAnchor="middle" fill="#475569" fontSize="9" fontWeight="900">MUX</text>
-
-        <path d="M850 480 L880 485 L880 545 L850 550 Z" fill="#fff" stroke="#64748b" strokeWidth="2" transform="rotate(-90 865 515)" />
-        <text x="865" y="475" textAnchor="middle" fill="#475569" fontSize="9" fontWeight="900">MUX</text>
-
-        {/* --- SIGNAL ROUTING: DATA PATH TIERED LANES (THICK BLACK) --- */}
-        <g fill="none" stroke="#1e293b" strokeWidth="2.8" markerEnd="url(#arrowhead)">
-          {/* Lane 1: Fetch */}
-          <path d="M70 310 L100 310" />
-          <path d="M155 330 L220 330" />
-          <path d="M165 330 V140 H170" markerEnd="none" />
-          <path d="M205 140 H30 V290 H40" />
-          <path d="M220 140 V75 H480" />
-
-          {/* Lane 2: Execute */}
-          <path d="M330 330 L500 330" />
-          <path d="M350 330 V160 H370" />
-          <path d="M350 330 V497 H360" />
-          <path d="M350 330 V580 H680 V550" />
-          <path d="M495 497 H670 V380 H685" />
-          <path d="M540 497 V85" markerEnd="url(#arrowhead)" strokeDasharray="6,4" /> {/* Branch offset */}
-          <path d="M512 80 H910 V15 H10 V325 H40" /> {/* Branch Target to PC Mux */}
-
-          <path d="M630 300 H750" />
-          <path d="M630 370 H685" />
-          <path d="M710 370 H750" />
-          <path d="M825 340 H855" />
-          <path d="M835 340 V528 H845" markerEnd="none" />
-          <path d="M955 330 H960 V515 H895" />
-          <path d="M835 515 H15 V640 H565 V410" /> {/* Final Write Back */}
-        </g>
-
-        {/* --- SIGNAL ROUTING: CONTROL TIERED LANES (THIN RED) --- */}
-        <g fill="none" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#control-arrow)">
-          <path d="M430 220 V250 H790 V145 H840" /> {/* Branch logic trigger */}
-          <path d="M490 145 H550 V250" />           {/* RegWrite enable */}
-          <path d="M455 220 V255 H697 V330" />       {/* ALUSrc select */}
-          <path d="M405 220 V610 H670 V555" />       {/* ALUOp distribution */}
-          <path d="M475 220 V245 H905 V270" />       {/* Data Memory R/W */}
-          <path d="M490 180 H935 V515 H880" />       {/* MemToReg mux select */}
-          <path d="M700 470 V420" stroke="#ca8a04" markerEnd="url(#control-arrow)" /> {/* ALU Command cable */}
-        </g>
-
-        {/* Status Line (Blue) */}
-        <path d="M787 410 V440 H820 V165 H840" fill="none" stroke="#3b82f6" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
-
-        {/* Next PC Select Feed */}
-        <path d="M880 150 H920 V10 H5 V275 H40" fill="none" stroke="#1e293b" strokeWidth="1.2" markerEnd="url(#arrowhead)" />
-
-        {/* --- ANNOTATIONS & LABELS (ZERO OVERLAP) --- */}
-        <g fontSize="10" fontWeight="950" textAnchor="start">
-          <text x="560" y="242" fill="#ef4444">RegWrite</text>
-          <text x="350" y="242" fill="#ef4444">Branch</text>
-          <text x="590" y="625" fill="#ef4444">ALUOp Code</text>
-          <text x="795" y="455" fill="#3b82f6">Zero Flag</text>
-          <text x="55" y="210" fill="#1e293b" transform="rotate(-90 55 210)">PCSrc Logic</text>
-          <text x="860" y="240" fill="#ef4444">Mem Control</text>
-          <text x="340" y="280" fill="#3b82f6" fontWeight="900" fontSize="10">[31-21]</text>
-          <text x="340" y="395" fill="#3b82f6" fontWeight="900" fontSize="10">[25-0]</text>
-        </g>
-
-        {/* LEGEND (Bottom Right Clean Zone) */}
-        <g transform="translate(685, 545)">
-          <rect width="265" height="105" fill="#fff" stroke="#e2e8f0" rx="8" />
-          <text x="12" y="22" fontSize="12" fontWeight="1000" fill="#0f172a">AARCH64 ROUTING LEGEND</text>
-          <line x1="12" y1="42" x2="52" y2="42" stroke="#1e293b" strokeWidth="4" />
-          <text x="60" y="47" fontSize="10" fill="#475569" fontWeight="800">64-bit Core Buses (Banded Lanes)</text>
-          <line x1="12" y1="65" x2="52" y2="65" stroke="#ef4444" strokeWidth="2" />
-          <text x="60" y="70" fontSize="10" fill="#991b1b" fontWeight="800">Control Signal Plane (Tier 3)</text>
-          <line x1="12" y1="88" x2="52" y2="88" stroke="#3b82f6" strokeWidth="2" />
-          <text x="60" y="93" fontSize="10" fill="#1e40af" fontWeight="800">Execution Status / Flags</text>
-        </g>
-
-      </svg>
+    <div style={{ background: '#fff', padding: '15px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <img
+        src={datapathImg}
+        alt="AArch64 Instruction Datapath"
+        style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
+      />
     </div>
-  )
+  );
 }
 
 function RegisterTable() {
@@ -536,11 +456,11 @@ function RegisterTable() {
       <tbody>
         {[
           ["X0 – X7", "W0–W7", "Function arguments & return values"],
-          ["X8 – X18", "W8–W18", "Caller-saved; X8=XR, X16/X17=IP0/IP1"],
+          ["X8 – X18", "W8–W18", "Caller-saved temporaries (X16/X17 = IP0/IP1)"],
           ["X19 – X28", "W19–W28", "Callee-saved (preserved across calls)"],
           ["X29 / X30", "FP / LR", "Frame Pointer / Link Register"],
-          ["V0 – V31", "Q/D/S/H/B", "SIMD & FP — 128-bit vector banks"],
-          ["Z0 – Z31", "—", "SVE2 scalable vectors (128–2048b, impl-defined)"],
+          ["V0 – V31", "Q/D/S/H/B views", "SIMD & FP (128-bit registers)"],
+          ["Z0 – Z31", "–", "SVE2 scalable vectors (128–2048 bits, implementation-defined)"],
           ["ZA Tile", "—", "SME matrix accumulator array"]
         ].map(([reg, alias, purpose], idx) => (
           <tr key={idx} >
@@ -566,12 +486,12 @@ function InstructionTypeTable() {
       <tbody>
         {[
           ["Integer", "ADD X0, X1, X2", "X0 = X1 + X2"],
-          ["Logical", "AND W3, W4, #0xFF", "Bitwise AND with immediate mask"],
+          ["Logical", "AND W3, W4, #0xFF", "Bitwise AND using logical immediate mask"],
           ["Shift", "LSR X5, X6, #2", "Logical right shift (÷4)"],
-          ["Move", "MOV X7, #42", "Load immediate constant to register"],
+          ["Move", "MOV X7, #42", "Load immediate constant into register (alias of MOVZ/MOVN)"],
           ["Load", "LDR X8, [X9]", "64-bit load from memory address"],
-          ["Store", "STR W10, [SP, #4]", "32-bit store to stack + 4 offset"],
-          ["Branch", "CBZ W2, label", "Branch if W2 == 0"],
+          ["Store", "STR W10, [SP, #4]", "32-bit store to stack with immediate offset"],
+          ["Branch", "CBZ W2, label", "Compare and branch if register equals zero"],
           ["SIMD / FP", "FADD S0, S1, S2", "FP scalar addition"],
           ["SVE2", "ADD Z0.S, Z1.S, Z2.S", "Scalable vector integer add"],
           ["System", "MRS X0, CTR_EL0", "Read system register to GPR"]
@@ -615,7 +535,7 @@ function ISAClarification() {
       </div>
 
       <div className="isa-info-box">
-        <div className="isa-info-title">Load/Store Architecture</div>
+        <div className="isa-info-title">Load/Store ISA Model</div>
         <div className="isa-info-content">
           <p style={{ fontSize: '9.2px', lineHeight: 1.25 }}>
             Memory is accessed <b>only</b> via load/store instructions. ALU instructions operate on <b>registers only</b>.
@@ -630,7 +550,7 @@ function Footer() {
   return (
     <div className="footer">
       <p>ARMv9.2-A ARCHITECTURE · <span>COA CAPSTONE POSTER</span></p>
-      <p><span>①</span> Architecture · Registers · ISA (Types · Formats · Addressing) &nbsp;|&nbsp; <span>②</span> Datapath · Pipeline · Features · References &nbsp;|&nbsp; <span>④</span> Comparison & Critical Thinking</p>
+      <div className="arm-logo" style={{ fontSize: '18px', opacity: 0.8, letterSpacing: '2px' }}>ARM v9.2-A</div>
       <p>B.TECH CSE 2024–28 · <span>SEMESTER 4 · 23CSE213</span></p>
     </div>
   )
