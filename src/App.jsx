@@ -72,7 +72,7 @@ function Column1() {
           <StatBox label="Translation Levels" value="Up to 4 levels" />
         </div> */}
       </Card>
-      <Card title="Register Structure (AArch64)" headerClass="ch-cyan" grow>
+      <Card title="Register Structure" headerClass="ch-cyan" grow>
         <CoaRegisters />
         <RegisterTable />
       </Card>
@@ -83,10 +83,10 @@ function Column1() {
 function Column2() {
   return (
     <div className="col">
-      <Card title="ISA Instruction Types (A64)" headerClass="ch-navy">
+      <Card title="ISA Instruction Types" headerClass="ch-navy">
         <InstructionTypeTable />
       </Card>
-      <Card title="Instruction Formats (Architectural Class)" headerClass="ch-blue">
+      <Card title="Instruction Formats" headerClass="ch-blue">
         <p style={{ fontSize: '10.8px', color: '#334155', marginBottom: '4px' }}>
           ARMv9.2 instructions are <b>32 bits wide</b>. Formats are logically classed by operand type:
         </p>
@@ -233,7 +233,7 @@ function RightSide() {
 
   return (
     <div style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <Card title="Datapath Diagram & Flow (Generic ARMv9.2 Core — Conceptual)" headerClass="ch-dark">
+      <Card title="Datapath Diagram & Flow" headerClass="ch-dark">
         <CoaDatapath />
       </Card>
 
@@ -272,7 +272,7 @@ function RightSide() {
               alt="Snapdragon 8 Gen 3"
               style={{ height: '160px', width: '100%', objectFit: 'contain', filter: 'opacity(0.9)', marginBottom: '6px' }}
             />
-            <div style={{ fontSize: '11px', fontWeight: '800', color: '#000' }}>Snapdragon 8 Gen 3</div>
+            <div style={{ fontSize: '13px', fontWeight: '800', color: '#000' }}>Snapdragon 8 Gen 3</div>
             {/* <div style={{ fontSize: '8px', color: '#475569' }}>Category: Mobile</div> */}
           </div>
           <div style={{ flex: 1.2, background: '#fff', border: '1.5px solid #000', borderRadius: '4px', overflow: 'hidden', alignSelf: 'stretch', display: 'flex', flexDirection: 'column' }}>
@@ -280,7 +280,7 @@ function RightSide() {
               SHARED ARMV9.2-A CAPABILITIES
             </div>
             <div style={{ padding: '8px', fontSize: '9px', color: '#000', lineHeight: 1.5 }}>
-              <ul style={{ margin: 0, paddingLeft: '14px' }}>
+              <ul style={{ margin: 0, color: '#000', paddingLeft: '14px' }}>
                 <li style={{ marginBottom: '3px' }}><strong>Cortex-A720</strong> efficiency cores (Armv9.2-A)</li>
                 <li style={{ marginBottom: '3px' }}><strong>SVE2 SIMD</strong> and <strong>SME</strong> matrix acceleration</li>
                 <li style={{ marginBottom: '3px' }}><strong>Hardware Security:</strong> RME, PAC, BTI</li>
@@ -295,7 +295,7 @@ function RightSide() {
               alt="MediaTek Dimensity 9300"
               style={{ height: '160px', marginBottom: '6px' }}
             />
-            <div style={{ fontSize: '11px', fontWeight: '800', color: '#000' }}>MediaTek Dimensity 9300</div>
+            <div style={{ fontSize: '13px', fontWeight: '800', color: '#000' }}>MediaTek Dimensity 9300</div>
             {/* <div style={{ fontSize: '9px', color: '#475569' }}>Category: Cloud</div> */}
           </div>
         </div>
@@ -359,15 +359,9 @@ function CoaArchitecture() {
 
       {/* APPLICATION CORES */}
       <g transform="translate(50, 24)">
-        <rect x="0" y="0" width="220" height="38" rx="3" fill="#f8fafc" stroke="#334155" strokeWidth="1.2" />
-        <text x="110" y="16" textAnchor="middle" fill="#0f172a" fontSize="9.5" fontWeight="900">APPLICATION CORE</text>
-        <text x="110" y="29" textAnchor="middle" fill="#64748b" fontSize="7.2" fontWeight="700">AArch64 · EL0–EL3 · Non-Secure / Secure / Realm</text>
-      </g>
-
-      <g transform="translate(50, 68)">
-        <rect x="0" y="0" width="220" height="38" rx="3" fill="#f8fafc" stroke="#334155" strokeWidth="1.2" />
-        <text x="110" y="16" textAnchor="middle" fill="#0f172a" fontSize="9.5" fontWeight="900">APPLICATION CORE</text>
-        <text x="110" y="29" textAnchor="middle" fill="#64748b" fontSize="7.2" fontWeight="700">AArch64 · EL0–EL3 · Non-Secure / Secure / Realm</text>
+        <rect x="0" y="0" width="220" height="82" rx="3" fill="#f8fafc" stroke="#334155" strokeWidth="1.2" />
+        <text x="110" y="38" textAnchor="middle" fill="#0f172a" fontSize="9.5" fontWeight="900">APPLICATION CORES (N×)</text>
+        <text x="110" y="52" textAnchor="middle" fill="#64748b" fontSize="7.2" fontWeight="700">AArch64 · EL0–EL3 · Non-Secure / Secure / Realm</text>
       </g>
 
       {/* SHARED CLUSTER LOGIC (DSU) */}
@@ -376,7 +370,6 @@ function CoaArchitecture() {
         <text x="100" y="15" textAnchor="middle" fill="#334155" fontSize="9" fontWeight="900">SHARED CLUSTER LOGIC (DSU)</text>
       </g>
 
-      <line x1={centerX} y1="62" x2={centerX} y2="68" stroke="#94a3b8" strokeWidth="1" />
       <line x1={centerX} y1="106" x2={centerX} y2="115" stroke="#94a3b8" strokeWidth="1" />
 
       {/* COHERENT INTERCONNECT */}
