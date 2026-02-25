@@ -322,7 +322,7 @@ function RightSide() {
             <div className="refs" style={{ fontSize: '11px', lineHeight: 1.8, padding: '4px' }}>
               1. <a href="https://developer.arm.com/documentation/ddi0601" style={{ color: 'var(--accent-rb)', textDecoration: 'none' }}>https://developer.arm.com/documentation/ddi0601</a><br />
               2. <a href="https://developer.arm.com/architectures/cpu-architecture/a-profile" style={{ color: 'var(--accent-rb)', textDecoration: 'none' }}>https://developer.arm.com/architectures/cpu-architecture/a-profile</a><br />
-              3. <a href="https://www.arm.com/architecture/cpu/neoverse" style={{ color: 'var(--accent-rb)', textDecoration: 'none' }}>https://www.arm.com/architecture/cpu/neoverse</a>
+              3. <a href="https://www.arm.com/products/silicon-ip-cpu/cortex-a/cortex-a720" style={{ color: 'var(--accent-rb)', textDecoration: 'none' }}>https://www.arm.com/silicon-ip-cpu/cortex-a/cortex-a720</a>
             </div>
           </Card>
           <TeamTable />
